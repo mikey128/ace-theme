@@ -1,0 +1,19 @@
+{
+  "name": "ace/ace-theme",
+  "description": "ACE Custom WordPress Theme",
+  "type": "wordpress-theme",
+  "require": {
+    "php": ">=7.4",
+    "htmlburger/carbon-fields": "^3.6"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "7.4"
+    }
+  },
+  "autoload": {
+    "files": []
+  }
+}
+

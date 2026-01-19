@@ -1,0 +1,10 @@
+/*
+Theme Name: ACE Theme
+Description: Custom theme for ACE LED Light
+Author: ACE
+Version: 1.0.0
+Text Domain: ace-theme
+*/
+.swiper-pagination-bullet{
+    width:120px;
+}

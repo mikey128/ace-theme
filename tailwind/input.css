@@ -1,0 +1,51 @@
+/* assets/css/tailwind.css 或 tailwind/input.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自定义 WordPress 样式 */
+@layer base {
+  /* WordPress 核心样式重置 */
+  .aligncenter {
+    @apply clear-both block my-8 mx-auto;
+  }
+  
+  .wp-caption {
+    @apply inline-block;
+  }
+  
+  /* Gutenberg 块样式 */
+  .wp-block-group {
+    @apply my-8;
+  }
+}
+
+@layer components {
+  /* 自定义组件 */
+  .btn {
+    @apply px-4 py-2 rounded font-medium transition-colors;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-opacity-90;
+  }
+  
+  /* WordPress 菜单样式 */
+  .main-menu li {
+    @apply inline-block mx-2;
+  }
+
+  /* Custom Custom Video: Hide native play button */
+  .ace-video-module video::-webkit-media-controls-start-playback-button,
+  .ace-video-module video::-webkit-media-controls-overlay-play-button {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+}
+
+@layer utilities {
+  /* 自定义工具类 */
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+}
