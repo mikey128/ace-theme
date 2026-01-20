@@ -5,7 +5,7 @@ function ace_register_product_cpt() {
     'label' => 'Products',
     'public' => true,
     'has_archive' => true,
-    'supports' => ['title','editor','thumbnail','page-attributes'],
+    'supports' => ['title','editor','thumbnail','excerpt','page-attributes'],
     'show_in_rest' => false,
   ]);
 }

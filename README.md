@@ -1,4 +1,5 @@
-# ace-theme
+<<<<<<< HEAD
+# ACE Theme
 
 A custom WordPress theme built on Carbon Fields for flexible content management.
 
@@ -131,3 +132,7 @@ Make sure the helper function `ace_image_url()` is available in `inc/helpers.php
 ## License
 
 This theme is proprietary and all rights are reserved.
+
+=======
+# ace-theme
+>>>>>>> 0e2a500e5065f4291c1e89a05b6ac43e212422a4

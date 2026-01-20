@@ -42,7 +42,24 @@ add_filter('use_block_editor_for_post', function($use_block_editor, $post){
   }
   return $use_block_editor;
 }, 10, 2);
+// enable excerpts on pages and products
+add_action('init', function() {
+  add_post_type_support('page', 'excerpt');
+  add_post_type_support('product', 'excerpt');
+}, 11);
 
+// force show excerpt meta box in Classic Editor
+add_action('add_meta_boxes', function() {
+  remove_meta_box('postexcerpt', 'page', 'normal');
+  remove_meta_box('postexcerpt', 'product', 'normal');
+  if (post_type_supports('page', 'excerpt')) {
+    add_meta_box('postexcerpt', 'Excerpt', 'post_excerpt_meta_box', 'page', 'normal', 'core');
+  }
+  if (post_type_supports('product', 'excerpt')) {
+    add_meta_box('postexcerpt', 'Product short description', 'post_excerpt_meta_box', 'product', 'normal', 'core');
+  }
+}, 0);
+ 
 // Fix TinyMCE sync issue in Classic Editor for Carbon Fields
 add_action('admin_footer', function() {
   global $post_type;

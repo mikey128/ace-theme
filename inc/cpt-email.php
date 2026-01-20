@@ -27,4 +27,3 @@ function ace_email_lead_admin_columns($columns) {
   return $new;
 }
 add_filter('manage_edit-email_lead_columns', 'ace_email_lead_admin_columns');
-
