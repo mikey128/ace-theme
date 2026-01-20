@@ -20,15 +20,15 @@ if ($hide) {
 $poster_url = $poster_id ? wp_get_attachment_image_url($poster_id, 'full') : '';
 $video_url = $video_id ? wp_get_attachment_url($video_id) : '';
 
-$wrapper_class = $full_width ? 'w-full px-6' : 'max-w-global mx-auto px-6';
+$wrapper_class = $full_width ? 'w-full' : 'max-w-global mx-auto';
 ?>
 
-<section class="py-12 lg:py-20 bg-white company-profile-section">
+<section class="my-8 lg:my-8 bg-brand-secondary company-profile-section">
     <div class="<?php echo esc_attr($wrapper_class); ?>">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             
             <!-- Left Column: Video/Image & Stats -->
-            <div class="relative group rounded-xl overflow-hidden shadow-lg">
+            <div class="relative group overflow-hidden shadow-lg">
                 <!-- Poster Image -->
                 <div class="aspect-[4/3] w-full relative overflow-hidden bg-gray-100 cursor-pointer js-company-video-trigger">
                     <?php if ($poster_url): ?>
@@ -37,7 +37,7 @@ $wrapper_class = $full_width ? 'w-full px-6' : 'max-w-global mx-auto px-6';
                     
                     <!-- Play Button Overlay -->
                     <div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                        <div class="w-16 h-16 md:w-20 md:h-20 bg-brand-accent rounded-full flex items-center justify-center shadow-lg transform transition-transform duration-300 group-hover:scale-110">
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-brand-accent rounded-full flex items-center justify-center shadow-lg transform transition-transform duration-300 group-hover:scale-105">
                             <svg class="w-6 h-6 md:w-8 md:h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z" />
                             </svg>
@@ -50,13 +50,13 @@ $wrapper_class = $full_width ? 'w-full px-6' : 'max-w-global mx-auto px-6';
 
                 <!-- Stats Overlay (Right Side on Desktop, Bottom on Mobile) -->
                 <?php if (!empty($stats)): ?>
-                    <div class="absolute bottom-0 left-0 w-full lg:w-auto lg:top-0 lg:bottom-0 lg:left-auto lg:right-0 flex flex-row lg:flex-col justify-between lg:justify-center z-20 pointer-events-none">
+                    <div class="absolute bottom-0 left-0 w-full lg:w-auto lg:top-0 lg:bottom-0 lg:left-auto lg:right-0 flex flex-row lg:flex-col justify-between lg:justify-center z-20 pointer-events-none lg:gap-[20px]">
                         <?php foreach ($stats as $index => $stat): ?>
-                            <div class="flex-1 lg:flex-none bg-black/60 backdrop-blur-sm text-white p-4 lg:py-6 lg:px-8 border-r lg:border-r-0 lg:border-b border-white/10 last:border-0 flex flex-col items-center lg:items-end justify-center min-w-[80px]">
+                            <div class="flex-1 lg:flex-none bg-black/60 backdrop-blur-sm text-white p-4 lg:py-6 lg:px-8 border-r lg:border-r-0 lg:border-none border-white/10 last:border-0 flex flex-col items-center lg:items-end justify-center min-w-[80px]">
                                 <div class="text-2xl md:text-3xl font-bold leading-tight mb-1 flex items-baseline">
                                     <span class="js-counter" data-target="<?php echo esc_attr($stat['number']); ?>">0</span>
                                     <?php if (!empty($stat['suffix'])): ?>
-                                        <span class="text-brand-accent ml-0.5"><?php echo esc_html($stat['suffix']); ?></span>
+                                        <span class="text-white ml-0.5"><?php echo esc_html($stat['suffix']); ?></span>
                                     <?php endif; ?>
                                 </div>
                                 <div class="text-xs md:text-sm text-white/80 font-medium text-center lg:text-right uppercase tracking-wide">
@@ -93,14 +93,12 @@ $wrapper_class = $full_width ? 'w-full px-6' : 'max-w-global mx-auto px-6';
 
     <!-- Video Modal -->
     <?php if ($video_url): ?>
-        <div id="company-video-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-sm opacity-0 transition-opacity duration-300">
-            <div class="relative w-full max-w-5xl mx-4 aspect-video bg-black rounded-lg overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300">
-                <button type="button" class="js-close-video absolute top-4 right-4 text-white hover:text-brand-accent z-20 transition-colors">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
+        <div id="company-video-modal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/80">
+            <div class="w-full max-w-4xl px-6 relative">
+                <button type="button" class="js-close-video absolute -top-5 -right-4 p-2 rounded-full bg-white/50 hover:bg-white/100 text-black shadow" aria-label="Close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12.01 5.7 5.7 4.29 7.11 10.59 13.41 4.29 19.71 5.7 21.12 12 14.82 18.3 21.12 19.71 19.71 13.41 13.41 19.71 7.11z"/></svg>
                 </button>
-                <video class="w-full h-full" controls playsinline>
+                <video class="w-full h-auto rounded-lg" controls playsinline>
                     <source src="<?php echo esc_url($video_url); ?>" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -121,23 +119,15 @@ $wrapper_class = $full_width ? 'w-full px-6' : 'max-w-global mx-auto px-6';
             if (trigger && modal && video) {
                 const openModal = () => {
                     modal.classList.remove('hidden');
-                    // Force reflow
-                    void modal.offsetWidth;
-                    modal.classList.remove('opacity-0');
-                    modal.querySelector('div').classList.remove('scale-95');
-                    modal.querySelector('div').classList.add('scale-100');
+                    modal.classList.add('flex');
                     video.play();
                 };
 
                 const closeModal = () => {
-                    modal.classList.add('opacity-0');
-                    modal.querySelector('div').classList.remove('scale-100');
-                    modal.querySelector('div').classList.add('scale-95');
-                    setTimeout(() => {
-                        modal.classList.add('hidden');
-                        video.pause();
-                        video.currentTime = 0;
-                    }, 300);
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    video.pause();
+                    video.currentTime = 0;
                 };
 
                 trigger.addEventListener('click', openModal);
