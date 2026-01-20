@@ -60,4 +60,26 @@ add_action('carbon_fields_register_fields', function () {
     Field::make('text', 'home_featured_message_button_text', 'Message Button Text')->set_default_value('Ask For Samples Or Customized Solutions'),
     Field::make('text', 'home_featured_message_button_link', 'Message Button Link')->set_attribute('type', 'url'),
   ]);
+
+  $industry = Container::make('post_meta', 'Industry Application Solutions');
+  if ($front_page_id) {
+    $industry->where('post_id', '=', $front_page_id);
+  } else {
+    $industry->where('post_type', '=', 'page');
+  }
+  $industry->add_fields([
+    Field::make('checkbox', 'home_industry_tabs_full_width', 'Full Width Section'),
+    Field::make('checkbox', 'home_industry_tabs_hide', 'Hide Section'),
+    Field::make('text', 'home_industry_tabs_heading', 'Heading')->set_default_value('Industry Application Solutions'),
+    Field::make('rich_text', 'home_industry_tabs_subheading', 'Subheading')->set_rows(6)->set_default_value("Achieve enhanced safety and efficiency with ACE LED Light's energy-efficient LED products tailored to diverse industrial applications."),
+    Field::make('complex', 'home_industry_tabs_items', 'Tabs')
+      ->set_layout('tabbed-horizontal')
+      ->set_max(12)
+      ->add_fields([
+        Field::make('text', 'title', 'Tab Title'),
+        Field::make('rich_text', 'description', 'Tab Description')->set_rows(10),
+        Field::make('image', 'icon', 'Tab Icon')->set_value_type('id'),
+        Field::make('image', 'image', 'Tab Image')->set_value_type('id'),
+      ]),
+  ]);
 });
