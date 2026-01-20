@@ -82,4 +82,30 @@ add_action('carbon_fields_register_fields', function () {
         Field::make('image', 'image', 'Tab Image')->set_value_type('id'),
       ]),
   ]);
+
+  // Company Profile
+  $company = Container::make('post_meta', 'Company Profile');
+  if ($front_page_id) {
+    $company->where('post_id', '=', $front_page_id);
+  } else {
+    $company->where('post_type', '=', 'page');
+  }
+  $company->add_fields([
+    Field::make('checkbox', 'home_company_full_width', 'Full Width Section'),
+    Field::make('checkbox', 'home_company_hide', 'Hide Section'),
+    Field::make('text', 'home_company_heading', 'Heading')->set_default_value('Meet ACE LED LIGHT'),
+    Field::make('rich_text', 'home_company_description', 'Description')->set_rows(6),
+    Field::make('text', 'home_company_btn_text', 'Button Text')->set_default_value('Read More'),
+    Field::make('text', 'home_company_btn_link', 'Button Link'),
+    Field::make('file', 'home_company_video', 'Video File')->set_type(['video']),
+    Field::make('image', 'home_company_poster', 'Video Poster Image')->set_value_type('id'),
+    Field::make('complex', 'home_company_stats', 'Statistics')
+      ->set_layout('tabbed-horizontal')
+      ->set_max(4)
+      ->add_fields([
+        Field::make('text', 'number', 'Number'),
+        Field::make('text', 'suffix', 'Suffix (e.g. +)'),
+        Field::make('text', 'label', 'Label'),
+      ]),
+  ]);
 });
