@@ -40,6 +40,7 @@ $message_btn_link = (string) carbon_get_the_post_meta('home_featured_message_but
           <?php
             $img_url = get_the_post_thumbnail_url($pid, 'large');
             $title = get_the_title($pid);
+            $link = get_permalink($pid);
             $desc = (string) carbon_get_post_meta($pid, 'product_short_description');
             if ($desc === '') {
               $excerpt = get_the_excerpt($pid);
@@ -55,7 +56,9 @@ $message_btn_link = (string) carbon_get_the_post_meta('home_featured_message_but
           <article class="rounded-sm bg-brand-secondary hover:bg-gray-100 transition-colors duration-300 shadow-sm p-5 sm:p-6">
             <figure class="w-full">
               <?php if ($img_url): ?>
-                <img src="<?php echo esc_url($img_url); ?>" alt="" class="w-full h-44 sm:h-52 lg:h-60 object-contain" />
+                <a href="<?php echo esc_url($link); ?>" class="block">
+                  <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($title); ?>" class="w-full h-44 sm:h-52 lg:h-60 object-contain" />
+                </a>
               <?php endif; ?>
             </figure>
             <?php if (!empty($thumbs)): ?>
@@ -72,7 +75,11 @@ $message_btn_link = (string) carbon_get_the_post_meta('home_featured_message_but
             <?php endif; ?>
             <div class="mt-4 text-center">
               <?php if ($title !== ''): ?>
-                <h3 class="text-base sm:text-lg font-bold text-neutral-900"><?php echo esc_html($title); ?></h3>
+                <h3 class="text-base sm:text-lg font-bold text-neutral-900">
+                  <a href="<?php echo esc_url($link); ?>" class="hover:text-brand-accent transition-colors">
+                    <?php echo esc_html($title); ?>
+                  </a>
+                </h3>
               <?php endif; ?>
               <?php if ($desc !== ''): ?>
                 <p class="mt-2 text-sm sm:text-base text-neutral-600"><?php echo wp_kses_post($desc); ?></p>
@@ -96,6 +103,7 @@ $message_btn_link = (string) carbon_get_the_post_meta('home_featured_message_but
               $pid = get_the_ID();
               $img_url = get_the_post_thumbnail_url($pid, 'large');
               $title = get_the_title($pid);
+              $link = get_permalink($pid);
               $desc = (string) carbon_get_post_meta($pid, 'product_short_description');
               if ($desc === '') {
                 $excerpt = get_the_excerpt($pid);
@@ -111,7 +119,9 @@ $message_btn_link = (string) carbon_get_the_post_meta('home_featured_message_but
             <article class="rounded-sm bg-brand-secondary hover:bg-gray-100 transition-colors duration-300 shadow-sm p-5 sm:p-6">
               <figure class="w-full">
                 <?php if ($img_url): ?>
-                  <img src="<?php echo esc_url($img_url); ?>" alt="" class="w-full h-44 sm:h-52 lg:h-60 object-contain" />
+                  <a href="<?php echo esc_url($link); ?>" class="block">
+                    <img src="<?php echo esc_url($img_url); ?>" alt="<?php echo esc_attr($title); ?>" class="w-full h-44 sm:h-52 lg:h-60 object-contain" />
+                  </a>
                 <?php endif; ?>
               </figure>
               <?php if (!empty($thumbs)): ?>
@@ -128,7 +138,11 @@ $message_btn_link = (string) carbon_get_the_post_meta('home_featured_message_but
               <?php endif; ?>
               <div class="mt-4 text-center">
                 <?php if ($title !== ''): ?>
-                  <h3 class="text-base sm:text-lg font-bold text-neutral-900"><?php echo esc_html($title); ?></h3>
+                  <h3 class="text-base sm:text-lg font-bold text-neutral-900">
+                    <a href="<?php echo esc_url($link); ?>" class="hover:text-brand-accent transition-colors">
+                      <?php echo esc_html($title); ?>
+                    </a>
+                  </h3>
                 <?php endif; ?>
                 <?php if ($desc !== ''): ?>
                   <p class="mt-2 text-sm sm:text-base text-neutral-600"><?php echo wp_kses_post($desc); ?></p>

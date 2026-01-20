@@ -11,7 +11,9 @@
    
     <?php get_template_part('template-parts/home/featured-products'); ?>
      <?php get_template_part('template-parts/home/application-solution-tabs'); ?>
+  
     <?php get_template_part('template-parts/home/company-profile'); ?>
+      <?php get_template_part('template-parts/home/our-advantages'); ?>
     <?php get_template_part('template-parts/global/media-carousel'); ?>
 
 <?php get_footer(); ?>

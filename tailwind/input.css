@@ -6,6 +6,9 @@
 /* 自定义 WordPress 样式 */
 @layer base {
   /* WordPress 核心样式重置 */
+  p{
+    @apply mb-4;
+  }
   .aligncenter {
     @apply clear-both block my-8 mx-auto;
   }

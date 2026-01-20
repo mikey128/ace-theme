@@ -108,4 +108,28 @@ add_action('carbon_fields_register_fields', function () {
         Field::make('text', 'label', 'Label'),
       ]),
   ]);
+
+  // Our Advantages
+  $advantages = Container::make('post_meta', 'Our Advantages');
+  if ($front_page_id) {
+    $advantages->where('post_id', '=', $front_page_id);
+  } else {
+    $advantages->where('post_type', '=', 'page');
+  }
+  $advantages->add_fields([
+    Field::make('checkbox', 'home_advantages_full_width', 'Full Width Section'),
+    Field::make('checkbox', 'home_advantages_hide', 'Hide Section'),
+    Field::make('text', 'home_advantages_heading', 'Heading')->set_default_value('What Makes Us Your Top Choice'),
+    Field::make('rich_text', 'home_advantages_subheading', 'Subheading')->set_rows(4),
+    Field::make('image', 'home_advantages_bg_image', 'Background Image')->set_value_type('id'),
+    Field::make('complex', 'home_advantages_items', 'Advantages')
+      ->set_layout('tabbed-horizontal')
+      ->set_max(6)
+      ->add_fields([
+        Field::make('text', 'serial', 'Serial Number (e.g. 01)'),
+        Field::make('image', 'icon', 'Icon')->set_value_type('id'),
+        Field::make('text', 'title', 'Title'),
+        Field::make('textarea', 'description', 'Description')->set_rows(4),
+      ]),
+  ]);
 });

@@ -50,9 +50,9 @@ $wrapper_class = $full_width ? 'w-full' : 'max-w-global mx-auto';
 
                 <!-- Stats Overlay (Right Side on Desktop, Bottom on Mobile) -->
                 <?php if (!empty($stats)): ?>
-                    <div class="absolute bottom-0 left-0 w-full lg:w-auto lg:top-0 lg:bottom-0 lg:left-auto lg:right-0 flex flex-row lg:flex-col justify-between lg:justify-center z-20 pointer-events-none lg:gap-[20px]">
+                    <div class="relative w-full grid grid-cols-2 gap-px bg-white/10 lg:bg-transparent lg:gap-[20px] lg:absolute lg:top-0 lg:bottom-0 lg:right-0 lg:w-auto lg:flex lg:flex-col lg:justify-center z-20 lg:pointer-events-none">
                         <?php foreach ($stats as $index => $stat): ?>
-                            <div class="flex-1 lg:flex-none bg-black/60 backdrop-blur-sm text-white p-4 lg:py-6 lg:px-8 border-r lg:border-r-0 lg:border-none border-white/10 last:border-0 flex flex-col items-center lg:items-end justify-center min-w-[80px]">
+                            <div class="bg-gray-900 lg:bg-black/60 lg:backdrop-blur-sm text-white p-4 lg:py-6 lg:px-8 border-none lg:border-none flex flex-col items-center lg:items-end justify-center min-w-[80px]">
                                 <div class="text-2xl md:text-3xl font-bold leading-tight mb-1 flex items-baseline">
                                     <span class="js-counter" data-target="<?php echo esc_attr($stat['number']); ?>">0</span>
                                     <?php if (!empty($stat['suffix'])): ?>
@@ -69,7 +69,7 @@ $wrapper_class = $full_width ? 'w-full' : 'max-w-global mx-auto';
             </div>
 
             <!-- Right Column: Content -->
-            <div class="flex flex-col items-start text-left">
+            <div class="flex flex-col items-start text-left px-4 max-w-xl">
                 <?php if ($heading): ?>
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                         <?php echo esc_html($heading); ?>
@@ -77,8 +77,8 @@ $wrapper_class = $full_width ? 'w-full' : 'max-w-global mx-auto';
                 <?php endif; ?>
 
                 <?php if ($description): ?>
-                    <div class="prose prose-lg text-gray-600 mb-8 max-w-none">
-                        <?php echo wp_kses_post($description); ?>
+                    <div class="prose prose-lg text-gray-600 mb-8 max-w-none [&_p]:mb-6">
+                        <?php echo apply_filters('the_content', $description); ?>
                     </div>
                 <?php endif; ?>
 
