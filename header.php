@@ -463,12 +463,14 @@
       <?php
         class Ace_Dropdown_Walker extends Walker_Nav_Menu {
           private $current_parent_title = '';
+          private $product_count = 0;
           
           function start_lvl(&$output, $depth = 0, $args = null) {
             $indent = str_repeat("\t", $depth);
             
             // Check if this is a megamenu (Products)
             if ($depth === 0 && strtolower($this->current_parent_title) === 'products') {
+              $this->product_count = 0;
               $output .= "\n$indent<ul class=\"sub-menu\">\n";
               $output .= "$indent\t<div class=\"megamenu-wrapper\">\n";
             } else {
@@ -517,9 +519,27 @@
             }
             // Submenu items for megamenu (Products)
             else if ($depth === 1 && strtolower($this->current_parent_title) === 'products') {
+              // Limit to 4 products
+              if ($this->product_count >= 4) {
+                return;
+              }
+              $this->product_count++;
+
               $thumb_id = get_post_thumbnail_id($item->object_id);
               $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'medium') : '';
-              $excerpt = has_excerpt($item->object_id) ? get_the_excerpt($item->object_id) : '';
+              
+              // Fetch description logic from featured-products.php
+              $desc_text = '';
+              $desc = (string) carbon_get_post_meta($item->object_id, 'product_short_description');
+              if ($desc === '') {
+                $excerpt = has_excerpt($item->object_id) ? get_the_excerpt($item->object_id) : '';
+                if (!empty($excerpt)) {
+                  $desc = $excerpt;
+                } else {
+                  $desc = wp_trim_words(wp_strip_all_tags(get_post_field('post_content', $item->object_id)), 24, '…');
+                }
+              }
+              $desc_text = $desc;
               
               // Don't wrap in li, output directly as card
               $output .= '<a href="' . esc_url($item->url ?? '') . '" class="product-card">';
@@ -532,14 +552,8 @@
               $output .= '</div>';
               $output .= '<div class="product-card-content">';
               $output .= '<div class="product-card-title">' . esc_html($item->title) . '</div>';
-              $desc_text = '';
-              if ($excerpt) {
-                $desc_text = $excerpt;
-              } elseif (!empty($item->description)) {
-                $desc_text = wp_strip_all_tags($item->description);
-              }
               if ($desc_text) {
-                $output .= '<div class="product-card-desc">' . esc_html($desc_text) . '</div>';
+                $output .= '<div class="product-card-desc">' . wp_kses_post($desc_text) . '</div>';
               }
               $output .= '</div>';
               $output .= '</a>';

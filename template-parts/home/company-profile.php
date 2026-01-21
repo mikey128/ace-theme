@@ -53,7 +53,7 @@ $wrapper_class = $full_width ? 'w-full' : 'max-w-global mx-auto';
                     <div class="relative w-full grid grid-cols-2 gap-px bg-white/10 lg:bg-transparent lg:gap-[20px] lg:absolute lg:top-0 lg:bottom-0 lg:right-0 lg:w-auto lg:flex lg:flex-col lg:justify-center z-20 lg:pointer-events-none">
                         <?php foreach ($stats as $index => $stat): ?>
                             <div class="bg-gray-900 lg:bg-black/60 lg:backdrop-blur-sm text-white p-4 lg:py-6 lg:px-8 border-none lg:border-none flex flex-col items-center lg:items-end justify-center min-w-[80px]">
-                                <div class="text-2xl md:text-3xl font-bold leading-tight mb-1 flex items-baseline">
+                                <div class="text-2xl md:text-4xl lg:text-5xl font-bold leading-tight mb-1 flex items-baseline">
                                     <span class="js-counter" data-target="<?php echo esc_attr($stat['number']); ?>">0</span>
                                     <?php if (!empty($stat['suffix'])): ?>
                                         <span class="text-white ml-0.5"><?php echo esc_html($stat['suffix']); ?></span>
