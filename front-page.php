@@ -14,8 +14,9 @@
   
     <?php get_template_part('template-parts/home/company-profile'); ?>
       <?php get_template_part('template-parts/home/our-advantages'); ?>
+    
     <?php get_template_part('template-parts/global/media-carousel'); ?>
-
+   <?php get_template_part('template-parts/home/testimonials'); ?>
 <?php get_footer(); ?>
 </body>
 </html>

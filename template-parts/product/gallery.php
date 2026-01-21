@@ -16,6 +16,18 @@ $post_id = get_the_ID();
 $block_id = 'product-gallery-' . uniqid();
 $gallery_bg_color = carbon_get_the_post_meta('gallery_background_color');
 $gallery_max_width = carbon_get_the_post_meta('gallery_max_width') ?: 'max-w-5xl';
+$thumb_justify_class = (is_array($gallery_ids) && count($gallery_ids) < 4) ? 'justify-center' : '';
+$gallery_is_dark = false;
+if (is_string($gallery_bg_color) && preg_match('/^#?[0-9A-Fa-f]{6}$/', $gallery_bg_color)) {
+  $hex = ltrim($gallery_bg_color, '#');
+  $r = hexdec(substr($hex, 0, 2));
+  $g = hexdec(substr($hex, 2, 2));
+  $b = hexdec(substr($hex, 4, 2));
+  $luminance = (0.2126 * $r + 0.7152 * $g + 0.0722 * $b) / 255;
+  $gallery_is_dark = $luminance < 0.5;
+}
+$title_color_class = $gallery_is_dark ? 'text-white' : 'text-black';
+$desc_color_class = $gallery_is_dark ? 'text-neutral-200' : 'text-neutral-600';
 ?>
 
 <section   class="product-gallery <?php echo $gallery_bg_color ? '' : 'bg-neutral-900'; ?> text-white px-4 py-6 sm:py-8 lg:py-10" <?php echo $gallery_bg_color ? 'style="background-color: ' . esc_attr($gallery_bg_color) . ';"' : ''; ?>>
@@ -49,7 +61,7 @@ $gallery_max_width = carbon_get_the_post_meta('gallery_max_width') ?: 'max-w-5xl
 
         <div class="mt-4 mx-auto">
           <div class="swiper <?php echo esc_attr($block_id); ?>-thumbs product-gallery-thumbs">
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper <?php echo esc_attr($thumb_justify_class); ?>">
               <?php foreach ($gallery_ids as $image_id): ?>
                 <?php
                 $thumb_url = wp_get_attachment_image_url($image_id, 'medium');
@@ -84,17 +96,17 @@ $gallery_max_width = carbon_get_the_post_meta('gallery_max_width') ?: 'max-w-5xl
     </div>
   <div class="mb-6 sm:mt-12 text-center max-w-5xl mx-auto">
         <?php if ($product_title): ?> 
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold ">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold <?php echo esc_attr($title_color_class); ?>">
             <?php echo esc_html($product_title); ?>
           </h2>
         <?php else: ?>
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold ">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold <?php echo esc_attr($title_color_class); ?>">
             <?php the_title(); ?>
           </h2>
         <?php endif; ?>
 
         <?php if ($product_description): ?>
-          <div class="mt-4 text-sm sm:text-base leading-relaxed text-neutral-200">
+          <div class="mt-4 text-sm sm:text-base leading-relaxed <?php echo esc_attr($desc_color_class); ?>">
             <?php echo wp_kses_post($product_description); ?>
           </div>
         <?php endif; ?>

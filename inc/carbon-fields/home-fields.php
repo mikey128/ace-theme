@@ -132,4 +132,27 @@ add_action('carbon_fields_register_fields', function () {
         Field::make('textarea', 'description', 'Description')->set_rows(4),
       ]),
   ]);
+
+  // Testimonials
+  $testimonials = Container::make('post_meta', 'Testimonials');
+  if ($front_page_id) {
+    $testimonials->where('post_id', '=', $front_page_id);
+  } else {
+    $testimonials->where('post_type', '=', 'page');
+  }
+  $testimonials->add_fields([
+    Field::make('checkbox', 'home_testimonials_full_width', 'Full Width Section'),
+    Field::make('checkbox', 'home_testimonials_hide', 'Hide Section'),
+    Field::make('text', 'home_testimonials_title', 'Heading'),
+    Field::make('textarea', 'home_testimonials_description', 'Subheading')->set_rows(4),
+    Field::make('complex', 'home_testimonials_items', 'Testimonials')
+      ->set_layout('tabbed-horizontal')
+      ->add_fields([
+        Field::make('image', 'avatar', 'Avatar')->set_value_type('id'),
+        Field::make('textarea', 'quote', 'Quote')->set_rows(5),
+        Field::make('text', 'author_name', 'Author Name'),
+        Field::make('text', 'author_title', 'Author Title'),
+        Field::make('text', 'author_company', 'Author Company'),
+      ]),
+  ]);
 });
