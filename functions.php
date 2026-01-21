@@ -4,6 +4,7 @@
 require_once get_template_directory() . '/inc/setup.php';
 require_once get_template_directory() . '/inc/assets.php';
 require_once get_template_directory() . '/inc/helpers.php';
+require_once get_template_directory() . '/inc/article.php';
 require_once get_template_directory() . '/inc/cpt-products.php';
 require_once get_template_directory() . '/inc/carbon-fields/bootstrap.php';
 require_once get_template_directory() . '/inc/carbon-fields/product-fields.php';
@@ -37,7 +38,8 @@ require_once get_template_directory() . '/inc/auth.php';
 add_filter('use_block_editor_for_post', function($use_block_editor, $post){
   $front_id = (int) get_option('page_on_front');
   if (is_object($post)) {
-    if (get_post_type($post) === 'product') { return false; }
+    $pt = get_post_type($post);
+    if ($pt === 'product' || $pt === 'post' || $pt === 'article') { return false; }
     if ($front_id && (int) $post->ID === $front_id) { return false; }
   }
   return $use_block_editor;

@@ -180,8 +180,7 @@ Container::make('post_meta', 'Product Applications')
     ->add_fields([
       Field::make('text', 'installation_section_id', 'Section ID')
         ->set_help_text('Used for on-page navigation, without #'),
-      Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
-      Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'enable_full_width', 'Full Width Section'),    
       Field::make('checkbox', 'installation_hide_section', 'Hide Section (Installation only)')
         ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'installation_heading', 'Section Heading'),
@@ -207,8 +206,7 @@ Container::make('post_meta', 'Product Applications')
     ->add_fields([
       Field::make('text', 'accessories_section_id', 'Section ID')
         ->set_help_text('Used for on-page navigation, without #'),
-      Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
-      Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'enable_full_width', 'Full Width Section'),    
       Field::make('checkbox', 'accessories_hide_section', 'Hide Section (Accessories only)')
         ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'accessories_heading', 'Section Heading'),
@@ -234,7 +232,6 @@ Container::make('post_meta', 'Product Applications')
       Field::make('text', 'support_section_id', 'Section ID')
         ->set_help_text('Used for on-page navigation, without #'),
       Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
-      Field::make('checkbox', 'hide_section', 'Hide Section'),
       Field::make('checkbox', 'support_hide_section', 'Hide Section (Support only)')
         ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'support_heading', 'Section Heading'),
@@ -259,8 +256,7 @@ Container::make('post_meta', 'Product Applications')
     ->add_fields([
       Field::make('text', 'faq_section_id', 'Section ID')
         ->set_help_text('Used for on-page navigation, without #'),
-      Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
-      Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'enable_full_width', 'Full Width Section'), 
       Field::make('checkbox', 'faq_hide_section', 'Hide Section (FAQ only)')
         ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'faq_heading', 'Section Heading'),
@@ -287,8 +283,7 @@ Container::make('post_meta', 'Product Applications')
     ->add_fields([
       Field::make('text', 'contact_section_id', 'Section ID')
         ->set_help_text('Used for on-page navigation, without #'),
-      Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
-      Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'enable_full_width', 'Full Width Section'),    
       Field::make('checkbox', 'contact_hide_section', 'Hide Section (Contact only)')
         ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'contact_heading', 'Heading')

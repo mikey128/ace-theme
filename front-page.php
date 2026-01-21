@@ -16,7 +16,9 @@
       <?php get_template_part('template-parts/home/our-advantages'); ?>
     
     <?php get_template_part('template-parts/global/media-carousel'); ?>
+   
    <?php get_template_part('template-parts/home/testimonials'); ?>
+    <?php get_template_part('template-parts/home/recent-news'); ?>
    <?php get_template_part('template-parts/home/image-marquee'); ?>
 <?php get_footer(); ?>
 </body>

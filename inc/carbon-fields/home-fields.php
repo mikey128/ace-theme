@@ -174,4 +174,27 @@ add_action('carbon_fields_register_fields', function () {
         Field::make('text', 'name', 'Name'),
       ]),
   ]);
+
+  // Recent News Articles
+  $news = Container::make('post_meta', 'Recent News Articles');
+  if ($front_page_id) {
+    $news->where('post_id', '=', $front_page_id);
+  } else {
+    $news->where('post_type', '=', 'page');
+  }
+  $news->add_fields([
+    Field::make('checkbox', 'home_news_full_width', 'Full Width Section'),
+    Field::make('checkbox', 'home_news_hide', 'Hide Section'),
+    Field::make('text', 'home_news_heading', 'Heading')->set_default_value('Recent News Articles'),
+    Field::make('rich_text', 'home_news_subheading', 'Subheading')->set_rows(4),
+    Field::make('text', 'home_news_count', 'Items Count')->set_help_text('Default 3')->set_default_value('3'),
+    Field::make('association', 'home_news_category', 'Filter by Category')
+      ->set_max(1)
+      ->set_types([
+        [
+          'type' => 'term',
+          'taxonomy' => 'category',
+        ],
+      ]),
+  ]);
 });
