@@ -8,7 +8,7 @@ $wrap = $full ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
 $title = (string) carbon_get_the_post_meta('home_partners_title');
 $section_id = 'home-partners-' . uniqid();
 ?>
-<section id="<?php echo esc_attr($section_id); ?>" class="py-10 sm:py-12 bg-white">
+<section id="<?php echo esc_attr($section_id); ?>" class="py-10 sm:py-12 bg-white overflow-hidden">
   <div class="<?php echo esc_attr($wrap); ?>">
     <?php if ($title !== ''): ?>
       <header class="text-center mb-6 sm:mb-8">
@@ -25,7 +25,7 @@ $section_id = 'home-partners-' . uniqid();
               if (!$logo_id) { continue; }
             ?>
             <figure class="swiper-slide px-2 sm:px-3">
-              <div class="h-20 sm:h-24 w-full rounded-xl bg-white ring-1 ring-black/5 shadow-sm flex items-center justify-center">
+              <div class="h-20 sm:h-24 w-full flex items-center justify-center">
                 <?php echo wp_get_attachment_image($logo_id, 'medium', false, ['class' => 'max-h-16 sm:max-h-20 w-auto object-contain', 'alt' => $name]); ?>
               </div>
             </figure>
