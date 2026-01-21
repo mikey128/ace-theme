@@ -4,7 +4,7 @@ if ($hide) { return; }
 $items = carbon_get_the_post_meta('home_partners_items');
 if (empty($items) || !is_array($items)) { return; }
 $full = carbon_get_the_post_meta('home_partners_full_width');
-$wrap = $full ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
+$wrap = $full ? 'w-full px-6' : 'max-w-8xl mx-auto px-6 max-w-global';
 $title = (string) carbon_get_the_post_meta('home_partners_title');
 $section_id = 'home-partners-' . uniqid();
 ?>

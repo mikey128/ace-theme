@@ -6,7 +6,7 @@ $items = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta(
 if (empty($items) || !is_array($items)) { return; }
 
 $full = carbon_get_the_post_meta('home_testimonials_full_width');
-$wrap = $full ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
+$wrap = $full ? 'w-full px-6' : 'max-w-8xl mx-auto px-6 ';
 
 $title = (string) carbon_get_the_post_meta('home_testimonials_title');
 $desc  = (string) carbon_get_the_post_meta('home_testimonials_description');
@@ -16,7 +16,7 @@ $section_id = 'home-testimonials-' . uniqid();
    <style>
      #<?php echo esc_attr($section_id); ?> .swiper {
        overflow: hidden;
-       padding: 2rem 0;
+       padding: 2rem 0 0;
      }
      #<?php echo esc_attr($section_id); ?> .swiper-slide {
        width: 85vw;
@@ -113,7 +113,7 @@ $section_id = 'home-testimonials-' . uniqid();
               $avatar_html  = $avatar_id ? wp_get_attachment_image($avatar_id, 'thumbnail', false, ['class' => 'w-full h-full rounded-full object-cover']) : '';
             ?>
              <article class="swiper-slide">
-               <div class="testimonial-card relative bg-white rounded-2xl shadow-xl border border-gray-100 px-6 sm:px-8 pt-20 pb-10 text-center w-full h-full flex flex-col">
+               <div class="testimonial-card relative bg-white rounded-2xl shadow-xl border border-gray-100 px-6 sm:px-6 pt-20 pb-6 text-center w-full h-full flex flex-col">
                 <?php if ($avatar_html !== ''): ?>
                   <figure class="absolute -top-10 left-1/2 -translate-x-1/2 z-20">
                     <div class="w-20 h-20 md:w-24 md:h-24 rounded-full  overflow-hidden mx-auto bg-white">
