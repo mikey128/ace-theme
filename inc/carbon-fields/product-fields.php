@@ -119,7 +119,8 @@ Container::make('post_meta', 'Product Applications')
      Field::make('text', 'featured_section_id', 'Section ID')
        ->set_help_text('Used for on-page navigation, without #'),
      Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
-      Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'featured_hide_section', 'Hide Section (Featured only)')
+        ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'featured_heading', 'Heading'),
       Field::make('text', 'featured_left_subtitle', 'Left Subtitle'),
       Field::make('text', 'featured_left_title', 'Left Title'),
@@ -181,6 +182,8 @@ Container::make('post_meta', 'Product Applications')
         ->set_help_text('Used for on-page navigation, without #'),
       Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
       Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'installation_hide_section', 'Hide Section (Installation only)')
+        ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'installation_heading', 'Section Heading'),
       Field::make('select', 'installation_columns', 'Desktop Columns')
         ->set_options([
@@ -206,6 +209,8 @@ Container::make('post_meta', 'Product Applications')
         ->set_help_text('Used for on-page navigation, without #'),
       Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
       Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'accessories_hide_section', 'Hide Section (Accessories only)')
+        ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'accessories_heading', 'Section Heading'),
       Field::make('select', 'accessories_columns', 'Desktop Columns')
         ->set_options([
@@ -230,6 +235,8 @@ Container::make('post_meta', 'Product Applications')
         ->set_help_text('Used for on-page navigation, without #'),
       Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
       Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'support_hide_section', 'Hide Section (Support only)')
+        ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'support_heading', 'Section Heading'),
       Field::make('complex', 'support_videos', 'Video Slides')
         ->set_layout('tabbed-horizontal')
@@ -254,6 +261,8 @@ Container::make('post_meta', 'Product Applications')
         ->set_help_text('Used for on-page navigation, without #'),
       Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
       Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'faq_hide_section', 'Hide Section (FAQ only)')
+        ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'faq_heading', 'Section Heading'),
       Field::make('select', 'faq_max_width', 'Content Max Width')
         ->set_options([
@@ -280,6 +289,8 @@ Container::make('post_meta', 'Product Applications')
         ->set_help_text('Used for on-page navigation, without #'),
       Field::make('checkbox', 'enable_full_width', 'Full Width Section'),
       Field::make('checkbox', 'hide_section', 'Hide Section'),
+      Field::make('checkbox', 'contact_hide_section', 'Hide Section (Contact only)')
+        ->set_help_text('Module-specific toggle; does not affect other sections'),
       Field::make('text', 'contact_heading', 'Heading')
         ->set_default_value('Talk to Your Dedicated LED Product Experts'),
       Field::make('textarea', 'contact_description', 'Intro Description')
