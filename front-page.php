@@ -17,6 +17,7 @@
     
     <?php get_template_part('template-parts/global/media-carousel'); ?>
    <?php get_template_part('template-parts/home/testimonials'); ?>
+   <?php get_template_part('template-parts/home/image-marquee'); ?>
 <?php get_footer(); ?>
 </body>
 </html>

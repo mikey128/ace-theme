@@ -155,4 +155,23 @@ add_action('carbon_fields_register_fields', function () {
         Field::make('text', 'author_company', 'Author Company'),
       ]),
   ]);
+
+  // Partners Marquee
+  $partners = Container::make('post_meta', 'Partners Marquee');
+  if ($front_page_id) {
+    $partners->where('post_id', '=', $front_page_id);
+  } else {
+    $partners->where('post_type', '=', 'page');
+  }
+  $partners->add_fields([
+    Field::make('checkbox', 'home_partners_full_width', 'Full Width Section'),
+    Field::make('checkbox', 'home_partners_hide', 'Hide Section'),
+    Field::make('text', 'home_partners_title', 'Heading'),
+    Field::make('complex', 'home_partners_items', 'Partners')
+      ->set_layout('tabbed-horizontal')
+      ->add_fields([
+        Field::make('image', 'logo', 'Logo')->set_value_type('id'),
+        Field::make('text', 'name', 'Name'),
+      ]),
+  ]);
 });
