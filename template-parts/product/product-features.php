@@ -25,9 +25,6 @@ foreach ($limited_features as $index => $feature) {
     break;
   }
 }
-if ($highlight_index === null && !empty($limited_features)) {
-  $highlight_index = 0;
-}
 $section_id_input = (string) carbon_get_the_post_meta('features_section_id');
 $section_id    = $section_id_input !== '' ? sanitize_title($section_id_input) : 'product-features-' . get_the_ID();
 ?>

@@ -64,10 +64,10 @@ $section_id = 'home-recent-news-' . uniqid();
               $excerpt = wp_trim_words($excerpt, 40, '…');
             }
           ?>
-          <article class="rounded-xl bg-white">
+          <article class="bg-white">
             <?php if ($thumb): ?>
-              <a href="<?php echo esc_url($url); ?>" class="block">
-                <img src="<?php echo esc_url($thumb); ?>" alt="" class="w-full h-56 md:h-60 object-cover rounded-md" loading="lazy">
+              <a href="<?php echo esc_url($url); ?>" class="block overflow-hidden w-full">
+                <img src="<?php echo esc_url($thumb); ?>" alt="" class="w-full h-56 md:h-60 object-cover hover:scale-[1.02] transition-transform duration-300" loading="lazy">
               </a>
             <?php endif; ?>
             <div class="py-4">
