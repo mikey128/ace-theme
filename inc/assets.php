@@ -123,18 +123,24 @@ function ace_admin_styles() {
 
     /* Reduce the height of the main Gutenberg editor area */
     .block-editor-writing-flow {
-      min-height: 40vh !important; /* Default is often 100% or very high */
-      padding-bottom: 20px;
+     /* min-height: 40vh !important;
+      padding-bottom: 20px;*/
     }
     
     /* Ensure the editor canvas doesn't force full height */
     .edit-post-visual-editor,
     .editor-styles-wrapper {
-      min-height: auto !important;
+     /* min-height: auto !important;
       height: auto !important;
       max-height:80vh!important;
+      */
     }
-    
+   .components-resizable-box__container .cf-file__inner{
+      width:500px!important; height:500px!important;
+    }
+    .block-editor-block-list__block{
+       
+    }
   </style>
   <?php
 }

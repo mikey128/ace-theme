@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "settings": {
+    "layout": {
+      "contentSize": "var(--container-max-width)",
+      "wideSize": "1300px"
+    },
+    "spacing": {
+      "units": ["px", "em", "rem", "%"],
+      "blockGap": "1.5rem"
+    }
+  }
+}

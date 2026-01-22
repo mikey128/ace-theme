@@ -10,6 +10,7 @@ require_once get_template_directory() . '/inc/carbon-fields/bootstrap.php';
 require_once get_template_directory() . '/inc/carbon-fields/product-fields.php';
 require_once get_template_directory() . '/inc/carbon-fields/home-fields.php';
 require_once get_template_directory() . '/inc/carbon-fields/blocks.php';
+require_once get_template_directory() . '/inc/carbon-fields/page-field.php';
 
 
 $__global_email_fields = get_template_directory() . '/inc/carbon-fields/global-email-fields.php';
@@ -39,7 +40,7 @@ add_filter('use_block_editor_for_post', function($use_block_editor, $post){
   $front_id = (int) get_option('page_on_front');
   if (is_object($post)) {
     $pt = get_post_type($post);
-    if ($pt === 'product' || $pt === 'post' || $pt === 'article') { return false; }
+    if ($pt === 'product' || $pt === 'post' || $pt === 'article' || $pt === ' ') { return false; }
     if ($front_id && (int) $post->ID === $front_id) { return false; }
   }
   return $use_block_editor;

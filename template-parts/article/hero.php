@@ -16,15 +16,5 @@ $label = function_exists('ace_get_editorial_label') ? ace_get_editorial_label($p
       <?php endif; ?>
     </figure>
   </section>
-<?php else: ?>
-  <?php if ($label): ?>
-    <section class="relative w-full">
-      <div class="relative w-full h-40 sm:h-52 lg:h-[22rem] bg-neutral-900">
-        <div class="absolute inset-0 bg-black/35"></div>
-        <div class="absolute inset-0 flex items-center justify-center">
-          <span class="text-white text-3xl sm:text-4xl font-semibold tracking-wide"><?php echo esc_html($label); ?></span>
-        </div>
-      </div>
-    </section>
-  <?php endif; ?>
 <?php endif; ?>
+
