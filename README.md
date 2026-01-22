@@ -1,6 +1,5 @@
 <<<<<<< HEAD
 # ACE Theme
-
 A custom WordPress theme built on Carbon Fields for flexible content management.
 
 ## Requirements
