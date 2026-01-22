@@ -12,7 +12,7 @@ $address    = function_exists('carbon_get_theme_option') ? carbon_get_theme_opti
 $copyright  = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('footer_copyright') : '';
 $additional_info = function_exists('carbon_get_theme_option') ? carbon_get_theme_option('additional_info') : '';
 ?>
-<?php get_template_part('template-parts/global/contact-form'); ?>
+<?php if (!is_singular('product')) { get_template_part('template-parts/global/contact-form'); } ?>
 <?php get_template_part('template-parts/global/email-capture'); ?>
 
 

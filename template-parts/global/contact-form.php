@@ -2,11 +2,13 @@
 if (! function_exists('carbon_get_the_post_meta')) { return; }
 
 $hide = carbon_get_the_post_meta('contact_hide_section');
-if ($hide === null || $hide === '') { $hide = carbon_get_the_post_meta('hide_section'); }
+if (($hide === null || $hide === '') && function_exists('carbon_get_theme_option')) {
+  $hide = carbon_get_theme_option('global_contact_hide_section');
+}
 if ($hide) { return; }
 
-$full = carbon_get_the_post_meta('contact_enable_full_width');
-if ($full === null) { $full = carbon_get_the_post_meta('enable_full_width'); }
+$full = carbon_get_the_post_meta('contact_full_width');
+if ($full === null) { $full = carbon_get_the_post_meta('contact_full_width'); }
 if ($full === null && function_exists('carbon_get_theme_option')) {
   $full = carbon_get_theme_option('global_contact_enable_full_width');
 }

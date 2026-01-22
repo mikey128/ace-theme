@@ -9,8 +9,8 @@ if ($hide) {
   return;
 }
 
-$full = carbon_get_the_post_meta('featured_enable_full_width');
-if ($full === null || $full === '') { $full = carbon_get_the_post_meta('enable_full_width'); }
+$full = carbon_get_the_post_meta('featured_part_full_width');
+if ($full === null || $full === '') { $full = carbon_get_the_post_meta('featured_part_full_width'); }
 $wrap = $full ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
 
 $heading = carbon_get_the_post_meta('featured_heading');

@@ -3,23 +3,19 @@ if (! function_exists('carbon_get_the_post_meta')) {
     return;
 }
 
-$hide_section = carbon_get_the_post_meta('features_hide_section');
+$hide_section = carbon_get_the_post_meta('applications_hide_section');
 
 if ($hide_section) {
     return;
 }
-
-$applications = carbon_get_the_post_meta('product_applications');
-
-if (empty($applications) || ! is_array($applications)) {
-    return;
-}
-
-$full_width = carbon_get_the_post_meta('features_full_width');
-
+$full_width = carbon_get_the_post_meta('applications_full_width');
 $wrapper_classes = $full_width
     ? 'w-full px-6'
     : 'max-w-7xl mx-auto px-6 max-w-global';
+$applications = carbon_get_the_post_meta('product_applications');
+if (empty($applications) || ! is_array($applications)) {
+    return;
+}
 
 $section_title    = carbon_get_the_post_meta('applications_section_title');
 $section_subtitle = carbon_get_the_post_meta('applications_section_subtitle');

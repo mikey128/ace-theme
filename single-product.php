@@ -11,9 +11,9 @@
   get_template_part('template-parts/product/product-specs');
     get_template_part('template-parts/product/installation-design');
   get_template_part('template-parts/product/product-accessories');
-  get_template_part('template-parts/product/product-support');
-  
-  
+  get_template_part('template-parts/product/product-support');  
+
   get_template_part('template-parts/product/media-carousel');
   get_template_part('template-parts/product/product-faq');  
+    get_template_part('template-parts/product/contact-form');
 get_footer();

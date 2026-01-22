@@ -1,10 +1,13 @@
 <?php
 if (! function_exists('carbon_get_the_post_meta')) { return; }
 
-$hide = carbon_get_the_post_meta('hide_section');
+$hide = carbon_get_the_post_meta('contact_hide_section');
+if (($hide === null || $hide === '') && function_exists('carbon_get_theme_option')) {
+  $hide = carbon_get_theme_option('global_contact_hide_section');
+}
 if ($hide) { return; }
 
-$full = carbon_get_the_post_meta('enable_full_width');
+$full = carbon_get_the_post_meta('contact_full_width');
 $wrap = $full ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
 
 $heading       = carbon_get_the_post_meta('contact_heading');
