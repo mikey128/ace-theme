@@ -434,6 +434,73 @@ add_action('carbon_fields_register_fields', function () {
       include get_template_directory() . '/template-parts/blocks/image-carousel.php';
     });
 });
+
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('Info Grid', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'info_grid_full_width', __('Full Width', 'ace-theme')),
+      Field::make('text', 'info_grid_heading', __('Heading', 'ace-theme')),
+      Field::make('textarea', 'info_grid_subheading', __('Subheading', 'ace-theme'))
+        ->set_rows(3),
+     Field::make('select', 'info_columns', __('Columns', 'ace-theme'))
+        ->set_options([
+          '2' => __('2', 'ace-theme'),
+          '3' => __('3', 'ace-theme'),
+          '4' => __('4', 'ace-theme'),
+          '5' => __('5', 'ace-theme'),
+          '6' => __('6', 'ace-theme'),
+        ])
+        ->set_default_value('4'),
+      Field::make('select', 'info_grid_alignment', __('Text Alignment', 'ace-theme'))
+        ->set_options([
+          'left' => __('Left', 'ace-theme'),
+          'center' => __('Center', 'ace-theme'),
+          'right' => __('Right', 'ace-theme'),
+        ])
+        ->set_default_value('left'),
+      Field::make('complex', 'info_grid_items', __('Info Items', 'ace-theme'))
+        ->set_layout('tabbed-vertical')
+        ->add_fields([
+          Field::make('image', 'image', __('Image', 'ace-theme'))->set_value_type('id'),
+          Field::make('text', 'title', __('Title', 'ace-theme')),
+          Field::make('rich_text', 'description', __('Description', 'ace-theme'))
+            ->set_rows(4),
+          Field::make('text', 'button_label', __('Button Label', 'ace-theme')),
+          Field::make('text', 'button_link', __('Button Link', 'ace-theme'))
+            ->set_attribute('type', 'url'),
+        ])
+        ->set_header_template('
+          <% if (title) { %>
+            <%= title %>
+          <% } else { %>
+            Item #<%= $_index + 1 %>
+          <% } %>
+        '),
+    ])
+    ->set_description(__('Grid of info items with image, title, description, and button.', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('grid-view')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      $wrap = !empty($fields['info_grid_full_width']) ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
+      $heading = isset($fields['info_grid_heading']) ? (string) $fields['info_grid_heading'] : '';
+      $subheading = isset($fields['info_grid_subheading']) ? (string) $fields['info_grid_subheading'] : '';
+      $alignment = isset($fields['info_grid_alignment']) ? $fields['info_grid_alignment'] : 'left';
+      $cols = isset($fields['info_columns']) ? (int) $fields['info_columns'] : 4;
+      $items = isset($fields['info_grid_items']) ? (array) $fields['info_grid_items'] : [];
+      
+      if (empty($items)) {
+        if (is_admin()) {
+          echo '<div class="p-4 border-2 border-dashed border-gray-300 text-center text-gray-500 rounded-lg">Add info items to render the grid.</div>';
+        }
+        return;
+      }
+      
+      $section_id = 'info-grid-' . uniqid();
+      include get_template_directory() . '/template-parts/blocks/info-grid.php';
+    });
+});
  
 /**
  * Register Product Patterns
