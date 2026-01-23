@@ -7,15 +7,6 @@
 </head>
 <body <?php body_class(); ?>>
   <?php get_header(); ?>
-  <main>
-    <?php if (have_posts()): while (have_posts()): the_post(); ?>
-      <article>
-        <div class="prose max-w-none">
-          <?php the_content(); ?>
-        </div>
-      </article>
-    <?php endwhile; endif; ?>
-  </main>
     <?php get_template_part('template-parts/home/slideshow'); ?>
    
     <?php get_template_part('template-parts/home/featured-products'); ?>

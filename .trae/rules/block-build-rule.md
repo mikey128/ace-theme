@@ -1,0 +1,57 @@
+1️⃣ Architecture
+Use dynamic blocks only (server-side render via render_callback)
+Use Carbon Fields for block fields
+Markup rendered via PHP template
+Tailwind CSS (mobile-first)
+Vanilla JS only (no jQuery)
+
+2️⃣ Folder Structure
+/inc/blocks/name.php        → Block registration
+/template-parts/blocks/name.php → Markup
+/assets/js/block-name.js          → Block JS
+
+
+No inline CSS or inline JS in templates.
+3️⃣ Required Base Fields (Every Block)
+enable_full_width (checkbox)
+
+
+4️⃣ Render Rules
+Wrapper logic
+$wrapper = $enable_full_width
+  ? 'w-full px-6'
+  : 'max-w-7xl mx-auto px-6 max-w-global';
+
+5️⃣ Markup Standards
+Use semantic HTML (section, header, article)
+Clean structure
+No div nesting without purpose
+
+6️⃣ Tailwind Rules
+Mobile-first
+No inline styles
+Consistent spacing:
+Section: py-16 lg:py-24
+Container: px-6
+Reusable utility patterns
+
+7️⃣ JavaScript Rules
+Scope JS to block container
+Support multiple block instances
+Use IntersectionObserver when needed
+No global variables
+
+8️⃣ Gutenberg UX Rules
+Clear block name + icon
+Custom category: Custom ACE Blocks
+Logical field grouping
+No excessive options
+
+9️⃣ Naming Convention
+Field names: snake_case
+Files: block-name.php
+
+🔟 Philosophy
+Blocks = components
+Pages = composition
+Keep blocks modular, clean, and reusable.

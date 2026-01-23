@@ -1,3 +1,6 @@
+---
+alwaysApply: false
+---
 build the module replicated the design accurately as shown in uploaded image 
 
 1. layout and style 

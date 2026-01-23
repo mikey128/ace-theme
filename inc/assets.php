@@ -29,7 +29,7 @@ function ace_assets() {
     .text-brand-primary{color:var(--brand-primary)!important;}
     .bg-brand-primary{background-color:var(--brand-primary)!important;}
     .border-brand-primary{border-color:var(--brand-primary)!important;}
-    .text-brand-accent{color:var(--brand-accent)!important;}
+    .text-brand-accent{color:var(--brand-accent)}
     .bg-brand-accent{background-color:var(--brand-accent)!important;}
     .hover\\:bg-brand-accent:hover{background-color:var(--brand-accent)!important;}
     .ring-brand-accent{--tw-ring-color:var(--brand-accent)!important;}
@@ -58,6 +58,18 @@ function ace_assets() {
   $user_menu_js = get_template_directory() . '/assets/js/modules/user-menu.js';
   $user_menu_ver = file_exists($user_menu_js) ? filemtime($user_menu_js) : '1.0.0';
   wp_enqueue_script('ace-user-menu', get_template_directory_uri() . '/assets/js/modules/user-menu.js', [], $user_menu_ver, true);
+  
+  $info_stats_js = get_template_directory() . '/assets/js/info-stats.js';
+  $info_stats_ver = file_exists($info_stats_js) ? filemtime($info_stats_js) : '1.0.0';
+  wp_register_script('ace-info-stats', get_template_directory_uri() . '/assets/js/info-stats.js', [], $info_stats_ver, true);
+  
+  $tabbed_info_js = get_template_directory() . '/assets/js/tabbed-info.js';
+  $tabbed_info_ver = file_exists($tabbed_info_js) ? filemtime($tabbed_info_js) : '1.0.0';
+  wp_register_script('ace-tabbed-info', get_template_directory_uri() . '/assets/js/tabbed-info.js', [], $tabbed_info_ver, true);
+  
+  $image_carousel_js = get_template_directory() . '/assets/js/image-carousel.js';
+  $image_carousel_ver = file_exists($image_carousel_js) ? filemtime($image_carousel_js) : '1.0.0';
+  wp_register_script('ace-image-carousel', get_template_directory_uri() . '/assets/js/image-carousel.js', ['swiper'], $image_carousel_ver, true);
 }
 add_action('wp_enqueue_scripts', 'ace_assets');
 
@@ -228,4 +240,39 @@ function ace_disable_metabox_drag() {
   <?php
 }
 // add_action('admin_footer', 'ace_disable_metabox_drag');
+ 
+function ace_admin_range_live_value() {
+  ?>
+  <script>
+    (function(){
+      function updateHelp(range){
+        var field = range.closest('.cf-field') || range.parentNode;
+        var help = field ? field.querySelector('.cf-field__help, .cf-help') : null;
+        if (!help) {
+          help = document.createElement('div');
+          help.className = 'cf-field__help';
+          field && field.appendChild(help);
+        }
+        if (help) { help.textContent = 'Current: ' + range.value; }
+      }
+      function initRange(range){
+        updateHelp(range);
+        range.addEventListener('input', function(){ updateHelp(range); });
+        range.addEventListener('change', function(){ updateHelp(range); });
+      }
+      function boot(){
+        var ranges = document.querySelectorAll('input[type="range"]');
+        ranges.forEach(initRange);
+      }
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        boot();
+      } else {
+        document.addEventListener('DOMContentLoaded', boot);
+        window.addEventListener('load', boot);
+      }
+    })();
+  </script>
+  <?php
+}
+add_action('admin_footer', 'ace_admin_range_live_value');
 

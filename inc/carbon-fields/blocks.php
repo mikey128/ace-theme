@@ -79,7 +79,8 @@ add_action('carbon_fields_register_fields', function () {
       $cover_url = $fields['cover_image'] ?? '';
       $video_url = $fields['video_file'] ?? '';
       $width_sel = $fields['layout_width'] ?? 'container';
-      $wrap = $width_sel === 'full' ? 'w-full px-6' : ($width_sel === 'narrow' ? 'max-w-3xl mx-auto px-6' : 'max-w-7xl mx-auto px-6 max-w-global');
+      $wrap = $width_sel === 'full' ? 'w-full' : ($width_sel === 'narrow' ? 'max-w-3xl mx-auto px-6' : 'max-w-7xl mx-auto px-6 max-w-global');
+      $aspect = $width_sel === 'full' ? 'aspect-video md:aspect-[16/6]' : 'aspect-video';
 
       if (empty($video_url) || empty($cover_url)) {
         if (is_admin()) {
@@ -89,7 +90,7 @@ add_action('carbon_fields_register_fields', function () {
       }
       ?>
       <div class="<?php echo esc_attr($wrap); ?>">
-        <div class="ace-video-module relative w-full rounded-2xl overflow-hidden group aspect-video shadow-md bg-black">
+        <div class="ace-video-module relative w-full overflow-hidden group <?php echo esc_attr($aspect); ?> shadow-md bg-black">
           <video 
             class="w-full h-full object-cover" 
             src="<?php echo esc_url($video_url); ?>" 
@@ -207,6 +208,230 @@ add_action('carbon_fields_register_fields', function () {
       
       // Include the testimonials template
       include(get_template_directory() . '/template-parts/blocks/testimonials-carousel.php');
+    });
+});
+ 
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('Info Statistics', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'info_stats_full_width', __('Full Width', 'ace-theme')),
+      Field::make('text', 'heading', __('Heading', 'ace-theme')),
+      Field::make('text', 'subheading', __('Subheading', 'ace-theme')),
+      Field::make('rich_text', 'description', __('Description', 'ace-theme')),
+      Field::make('select', 'stats_columns', __('Columns', 'ace-theme'))
+        ->set_options([
+          '2' => __('2', 'ace-theme'),
+          '3' => __('3', 'ace-theme'),
+          '4' => __('4', 'ace-theme'),
+          '5' => __('5', 'ace-theme'),
+          '6' => __('6', 'ace-theme'),
+        ])
+        ->set_default_value('4'),
+      Field::make('complex', 'statistics', __('Statistics', 'ace-theme'))
+        ->set_layout('tabbed-vertical')
+        ->add_fields([
+          Field::make('text', 'number', __('Number', 'ace-theme')),
+          Field::make('text', 'label', __('Label', 'ace-theme')),
+          Field::make('checkbox', 'highlight', __('Highlight', 'ace-theme')),
+        ])
+        ->set_header_template('
+          <% if (number && label) { %>
+            <%= number %> — <%= label %>
+          <% } else { %>
+            Stat #<%= $_index + 1 %>
+          <% } %>
+        ')
+        ->set_min(1)
+        ->set_max(12),
+    ])
+    ->set_description(__('Statistics with animated numbers and optional highlight', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('chart-bar')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      $wrap  = !empty($fields['info_stats_full_width']) ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
+      $title = isset($fields['heading']) ? (string) $fields['heading'] : '';
+      $sub   = isset($fields['subheading']) ? (string) $fields['subheading'] : '';
+      $desc  = isset($fields['description']) ? (string) $fields['description'] : '';
+      $cols  = isset($fields['stats_columns']) ? (int) $fields['stats_columns'] : 4;
+      $items = isset($fields['statistics']) ? (array) $fields['statistics'] : [];
+      $grid  = 'grid-cols-2';
+      if ($cols === 3) { $grid = 'grid-cols-2 md:grid-cols-3'; }
+      elseif ($cols === 4) { $grid = 'grid-cols-2 md:grid-cols-4'; }
+      elseif ($cols === 5) { $grid = 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'; }
+      elseif ($cols === 6) { $grid = 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'; }
+      if (!is_admin()) { wp_enqueue_script('ace-info-stats'); }
+      $section_id = 'info-stats-' . uniqid();
+      set_query_var('info_stats', [
+        'wrap' => $wrap,
+        'title' => $title,
+        'sub' => $sub,
+        'desc' => $desc,
+        'grid' => $grid,
+        'items' => $items,
+        'id' => $section_id,
+      ]);
+      include get_template_directory() . '/template-parts/blocks/info-stats.php';
+    });
+});
+ 
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('Tabbed Info', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'tabbed_enable_full_width', __('Full Width', 'ace-theme')),
+      Field::make('text', 'tabbed_heading', __('Heading', 'ace-theme')),
+      Field::make('text', 'tabbed_subheading', __('Subheading', 'ace-theme')),
+      Field::make('complex', 'tabbed_items', __('Tabs', 'ace-theme'))
+        ->set_layout('tabbed-vertical')
+        ->add_fields([
+          Field::make('text', 'tab_label', __('Tab Label', 'ace-theme')),
+          Field::make('image', 'tab_image', __('Image', 'ace-theme'))->set_value_type('id'),
+          Field::make('rich_text', 'tab_content', __('Content', 'ace-theme')),
+          Field::make('select', 'image_position', __('Image Position', 'ace-theme'))
+            ->set_options([
+              'first'  => __('Image First', 'ace-theme'),
+              'second' => __('Image Second', 'ace-theme'),
+            ])->set_default_value('second'),
+          Field::make('color', 'text_bg_color', __('Text Background', 'ace-theme')),
+          Field::make('checkbox', 'text_bg_dark', __('Dark Background (white text)', 'ace-theme')),
+        ])
+        ->set_header_template('
+          <% if (tab_label) { %>
+            <%= tab_label %>
+          <% } else { %>
+            Tab #<%= $_index + 1 %>
+          <% } %>
+        ')
+        ->set_min(1)
+        ->set_max(10),
+    ])
+    ->set_description(__('Tabbed content with image/text layout options', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('welcome-widgets-menus')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      $wrap = !empty($fields['tabbed_enable_full_width']) ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
+      $title = isset($fields['tabbed_heading']) ? (string) $fields['tabbed_heading'] : '';
+      $sub   = isset($fields['tabbed_subheading']) ? (string) $fields['tabbed_subheading'] : '';
+      $items = isset($fields['tabbed_items']) ? (array) $fields['tabbed_items'] : [];
+      if (empty($items)) {
+        if (is_admin()) {
+          echo '<div class="p-4 border-2 border-dashed border-gray-300 text-center text-gray-500 rounded-lg">Add tabs to render Tabbed Info.</div>';
+        }
+        return;
+      }
+      if (!is_admin()) { wp_enqueue_script('ace-tabbed-info'); }
+      $section_id = 'tabbed-info-' . uniqid();
+      include get_template_directory() . '/template-parts/blocks/tabbed-info.php';
+    });
+});
+ 
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('Recent News', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'recent_full_width', __('Full Width', 'ace-theme')),
+      Field::make('text', 'recent_heading', __('Heading', 'ace-theme')),
+      Field::make('rich_text', 'recent_subheading', __('Subheading', 'ace-theme')),
+      Field::make('select', 'recent_count', __('Posts Count', 'ace-theme'))
+        ->set_options([
+          '3' => __('3', 'ace-theme'),
+          '6' => __('6', 'ace-theme'),
+          '9' => __('9', 'ace-theme'),
+        ])->set_default_value('3'),
+      Field::make('association', 'recent_category', __('Category', 'ace-theme'))
+        ->set_types([
+          ['type' => 'term', 'taxonomy' => 'category'],
+        ]),
+    ])
+    ->set_description(__('Recent news grid from blog posts', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('admin-post')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      $wrap = !empty($fields['recent_full_width']) ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
+      $heading = isset($fields['recent_heading']) ? (string) $fields['recent_heading'] : '';
+      $subheading = isset($fields['recent_subheading']) ? (string) $fields['recent_subheading'] : '';
+      $count = isset($fields['recent_count']) ? (int) $fields['recent_count'] : 3;
+      if ($count < 1) { $count = 3; }
+      $assoc = isset($fields['recent_category']) ? (array) $fields['recent_category'] : [];
+      $cat_id = 0;
+      if (!empty($assoc)) {
+        $first = $assoc[0];
+        if (is_array($first) && isset($first['id'])) { $cat_id = (int) $first['id']; }
+      }
+      $args = [
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'posts_per_page' => $count,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'ignore_sticky_posts' => true,
+        'no_found_rows' => true,
+      ];
+      if ($cat_id > 0) { $args['cat'] = $cat_id; }
+      $q = new WP_Query($args);
+      $section_id = 'recent-news-block-' . uniqid();
+      include get_template_directory() . '/template-parts/blocks/recent-news.php';
+    });
+});
+ 
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('Image Carousel', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'image_carousel_full_width', __('Full Width', 'ace-theme')),
+      Field::make('checkbox', 'imgc_autoplay', __('Enable Autoplay', 'ace-theme')),
+      Field::make('text', 'imgc_heading', __('Heading', 'ace-theme')),
+      Field::make('textarea', 'imgc_subheading', __('Subheading', 'ace-theme'))->set_rows(3),     
+      Field::make('select', 'imgc_per_view', __('Images Per View (Desktop)', 'ace-theme'))
+        ->set_options([
+          '2' => __('2', 'ace-theme'),
+          '3' => __('3', 'ace-theme'),
+          '4' => __('4', 'ace-theme'),
+          '5' => __('5', 'ace-theme'),
+          '6' => __('6', 'ace-theme'),
+          '7' => __('7', 'ace-theme'),
+          '8' => __('8', 'ace-theme'),
+        ])->set_default_value('6'),
+      Field::make('complex', 'imgc_items', __('Images', 'ace-theme'))
+        ->set_layout('tabbed-vertical')
+        ->add_fields([
+          Field::make('image', 'img', __('Image', 'ace-theme'))->set_value_type('id'),
+          Field::make('text', 'alt', __('title', 'ace-theme')),
+        ])
+        ->set_header_template('
+          <% if (alt) { %>
+            <%= alt %>
+          <% } else { %>
+            Image #<%= $_index + 1 %>
+          <% } %>
+        ')
+        ->set_min(1)
+        ->set_max(20),
+    ])
+    ->set_description(__('Swiper image carousel with hover pause and modal', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('images-alt2')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      $wrap = !empty($fields['image_carousel_full_width']) ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
+      $heading = isset($fields['imgc_heading']) ? (string) $fields['imgc_heading'] : '';
+      $sub = isset($fields['imgc_subheading']) ? (string) $fields['imgc_subheading'] : '';
+      $items = isset($fields['imgc_items']) ? (array) $fields['imgc_items'] : [];
+      $autoplay = !empty($fields['imgc_autoplay']);
+      $per_view = isset($fields['imgc_per_view']) ? (int) $fields['imgc_per_view'] : 5;
+      if (empty($items)) {
+        if (is_admin()) {
+          echo '<div class="p-4 border-2 border-dashed border-gray-300 text-center text-gray-500 rounded-lg">Add images to render the carousel.</div>';
+        }
+        return;
+      }
+      if (!is_admin()) { wp_enqueue_script('ace-image-carousel'); }
+      $section_id = 'image-carousel-' . uniqid();
+      include get_template_directory() . '/template-parts/blocks/image-carousel.php';
     });
 });
  
