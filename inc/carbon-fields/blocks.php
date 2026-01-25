@@ -501,7 +501,61 @@ add_action('carbon_fields_register_fields', function () {
       include get_template_directory() . '/template-parts/blocks/info-grid.php';
     });
 });
- 
+
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('Image & Text', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'itm_full_width', __('Full Width', 'ace-theme')),
+      Field::make('text', 'itm_heading', __('Heading', 'ace-theme')),
+      Field::make('image', 'itm_image', __('Image', 'ace-theme'))
+        ->set_value_type('id'),
+      Field::make('rich_text', 'itm_description', __('Description', 'ace-theme')),
+      Field::make('select', 'itm_layout', __('Layout Ratio (Image:Text)', 'ace-theme'))
+        ->set_options([       
+          '5_5' => __('5:5', 'ace-theme'),
+          '3_2' => __('3:2', 'ace-theme'),
+        ])
+        ->set_default_value('5_5'),
+      Field::make('color', 'itm_bg_color', __('Background Color', 'ace-theme')),
+      Field::make('checkbox', 'itm_is_dark', __('Dark Background (White Text)', 'ace-theme')),
+    ])
+    ->set_description(__('Image and text side-by-side with adjustable ratio and background color.', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('align-pull-left')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      include get_template_directory() . '/template-parts/blocks/image-text.php';
+    });
+});
+
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('Image Banner', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'banner_full_width', __('Full Width', 'ace-theme')),
+      Field::make('select', 'banner_height', __('Image Height', 'ace-theme'))
+        ->set_options([
+          'natural' => __('Natural (no cropping)', 'ace-theme'),
+          'large'   => __('Large', 'ace-theme'),
+          'medium'  => __('Medium', 'ace-theme'),
+          'small'   => __('Small', 'ace-theme'),
+        ])
+        ->set_default_value('large'),
+      Field::make('image', 'banner_image', __('Custom Image', 'ace-theme'))
+        ->set_value_type('id'),
+      Field::make('text', 'custom_title', __('Custom Title', 'ace-theme'))
+        ->set_help_text(__('Leave empty to use current page title', 'ace-theme')),
+    ])
+    ->set_description(__('Full-width image banner with centered title overlay. Uses featured image and page title by default.', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('format-image')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      include get_template_directory() . '/template-parts/blocks/image-banner.php';
+    });
+});
+
 /**
  * Register Product Patterns
  */

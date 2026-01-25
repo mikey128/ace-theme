@@ -8,7 +8,7 @@ $grid = isset($info['grid']) ? $info['grid'] : 'grid-cols-2 md:grid-cols-4';
 $items = isset($info['items']) ? (array) $info['items'] : [];
 $section_id = isset($info['id']) ? $info['id'] : ('info-stats-' . uniqid());
 ?>
-<section id="<?php echo esc_attr($section_id); ?>" class="py-16 lg:py-24 bg-white">
+<section id="<?php echo esc_attr($section_id); ?>" class="py-12 lg:py-16 bg-white">
   <div class="<?php echo esc_attr($wrap); ?> ace-info-stats">
     <header class="text-center">
       <?php if ($title !== ''): ?>

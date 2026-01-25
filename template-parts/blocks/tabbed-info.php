@@ -5,7 +5,7 @@ $sub = isset($sub) ? $sub : '';
 $items = isset($items) ? (array) $items : [];
 $section_id = isset($section_id) ? $section_id : ('tabbed-info-' . uniqid());
 ?>
-<section id="<?php echo esc_attr($section_id); ?>" class="py-16 lg:py-24">
+<section id="<?php echo esc_attr($section_id); ?>" class="py-12 lg:py-16">
   <div class="<?php echo esc_attr($wrap); ?> ace-tabbed-info" data-section-id="<?php echo esc_attr($section_id); ?>">
     <header class="text-center">
       <?php if ($title !== ''): ?>
