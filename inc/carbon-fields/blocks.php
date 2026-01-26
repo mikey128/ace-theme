@@ -234,6 +234,7 @@ add_action('carbon_fields_register_fields', function () {
         ->set_layout('tabbed-vertical')
         ->add_fields([
           Field::make('text', 'number', __('Number', 'ace-theme')),
+          Field::make('text', 'suffix', __('Suffix', 'ace-theme')),
           Field::make('text', 'label', __('Label', 'ace-theme')),
           Field::make('checkbox', 'highlight', __('Highlight', 'ace-theme')),
         ])
@@ -435,7 +436,7 @@ add_action('carbon_fields_register_fields', function () {
       include get_template_directory() . '/template-parts/blocks/image-carousel.php';
     });
 });
-
+// info grid
 add_action('carbon_fields_register_fields', function () {
   Block::make(__('Info Grid', 'ace-theme'))
     ->set_mode('edit')
@@ -461,6 +462,8 @@ add_action('carbon_fields_register_fields', function () {
           'right' => __('Right', 'ace-theme'),
         ])
         ->set_default_value('left'),
+         Field::make('color', 'info_item_bg_color', __('Background Color', 'ace-theme')),
+      Field::make('checkbox', 'info_item_is_dark', __('Dark Background (White Text)', 'ace-theme')),
       Field::make('complex', 'info_grid_items', __('Info Items', 'ace-theme'))
         ->set_layout('tabbed-vertical')
         ->add_fields([
@@ -505,14 +508,22 @@ add_action('carbon_fields_register_fields', function () {
 
 add_action('carbon_fields_register_fields', function () {
   Block::make(__('Image & Text', 'ace-theme'))
-    ->set_mode('edit')
+    ->set_mode('edit') 
     ->set_preview_mode('live')
     ->add_fields([
-      Field::make('checkbox', 'itm_full_width', __('Full Width', 'ace-theme')),
+      Field::make('checkbox', 'itm_full_width', __('Full Width', 'ace-theme')),    
       Field::make('text', 'itm_heading', __('Heading', 'ace-theme')),
       Field::make('image', 'itm_image', __('Image', 'ace-theme'))
         ->set_value_type('id'),
       Field::make('rich_text', 'itm_description', __('Description', 'ace-theme')),
+     Field::make('text', 'media_button_label', __('Button Label', 'ace-theme')),
+     Field::make('text', 'media_button_link', __('Button Link', 'ace-theme'))
+            ->set_attribute('type', 'url'),
+        Field::make('select', 'layout_image_text', __('Layout', 'ace-theme'))
+        ->set_options([
+              'first'  => __('Image First', 'ace-theme'),
+              'second' => __('Image Second', 'ace-theme'),
+       ])->set_default_value('first'),
       Field::make('select', 'itm_layout', __('Layout Ratio (Image:Text)', 'ace-theme'))
         ->set_options([       
           '5_5' => __('5:5', 'ace-theme'),
@@ -619,6 +630,39 @@ add_action('carbon_fields_register_fields', function () {
 /**
  * Register Product Patterns
  */
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('vertical-tabbed-media', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'vtm_full_width', __('Full Width', 'ace-theme')),
+      Field::make('text', 'vtm_heading', __('Heading', 'ace-theme')),
+      Field::make('rich_text', 'vtm_subheading', __('Subheading', 'ace-theme')),
+      Field::make('complex', 'vtm_items', __('Tabs', 'ace-theme'))
+        ->set_layout('tabbed-vertical')
+        ->add_fields([
+          Field::make('text', 'title', __('Title', 'ace-theme')),
+          Field::make('rich_text', 'description', __('Description', 'ace-theme')),
+          Field::make('image', 'icon', __('Icon', 'ace-theme'))->set_value_type('id'),
+          Field::make('image', 'image', __('Image', 'ace-theme'))->set_value_type('id'),
+        ])
+        ->set_header_template('
+          <% if (title) { %>
+            <%= title %>
+          <% } else { %>
+            Tab #<%= $_index + 1 %>
+          <% } %>
+        ')
+        ->set_min(1)
+        ->set_max(10),
+    ])
+    ->set_description(__('Vertical tabs with media preview', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('list-view')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      include get_template_directory() . '/template-parts/blocks/vertical-tabbed-media.php';
+    });
+});
 add_action('init', function () {
   if (!function_exists('register_block_pattern_category')) {
     return;
@@ -640,5 +684,25 @@ add_action('init', function () {
       'content'     => '<!-- wp:carbon-fields/product-gallery /-->',
     ]
   );
+});
+
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('Rich Media', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'rich_full_width', __('Full Width', 'ace-theme')),
+      Field::make('text', 'rich_heading', __('Heading', 'ace-theme')),
+      Field::make('rich_text', 'rich_description', __('Description', 'ace-theme')),
+      Field::make('image', 'rich_image', __('Image', 'ace-theme'))->set_value_type('id'),
+      Field::make('text', 'rich_button_label', __('Button Label', 'ace-theme')),
+      Field::make('text', 'rich_button_link', __('Button Link', 'ace-theme'))->set_attribute('type', 'url'),
+    ])
+    ->set_description(__('Centered heading, description, full image, and CTA button', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('format-image')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      include get_template_directory() . '/template-parts/blocks/rich-media.php';
+    });
 });
 

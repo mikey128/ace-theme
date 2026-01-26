@@ -12,6 +12,9 @@ $layout = isset($fields['itm_layout']) ? $fields['itm_layout'] : '5_5';
 $bg_color = isset($fields['itm_bg_color']) ? $fields['itm_bg_color'] : '';
 $is_dark = !empty($fields['itm_is_dark']);
 $full_width = !empty($fields['itm_full_width']);
+$button_label = isset($fields['media_button_label']) ? $fields['media_button_label'] : '';
+$button_link = isset($fields['media_button_link']) ? $fields['media_button_link'] : '';
+$image_position = isset($fields['layout_image_text']) ? $fields['layout_image_text'] : 'first';
 
 $wrap_class = $full_width ? 'w-full' : 'max-w-7xl mx-auto px-6 max-w-global';
 
@@ -30,11 +33,12 @@ $text_color_class = $is_dark ? 'text-white' : 'text-gray-900';
 
 // Background Style
 $bg_style = $bg_color ? 'background-color: ' . esc_attr($bg_color) . ';' : '';
+$direction_class = $image_position === 'second' ? 'md:flex-row-reverse' : 'md:flex-row';
 
 ?>
 
 <div class="<?php echo esc_attr($wrap_class); ?> py-12 lg:py-16">
-    <div class="flex flex-col md:flex-row shadow-lg overflow-hidden ">
+    <div class="flex flex-col <?php echo esc_attr($direction_class); ?> overflow-hidden ">
         
         <!-- Image Column -->
         <div class="w-full <?php echo esc_attr($img_width_class); ?> relative">
@@ -58,6 +62,13 @@ $bg_style = $bg_color ? 'background-color: ' . esc_attr($bg_color) . ';' : '';
             <?php if ($description) : ?>
                 <div class="prose <?php echo $is_dark ? 'prose-invert' : ''; ?> max-w-none">
                     <?php echo apply_filters('the_content', $description); ?>
+                </div>
+            <?php endif; ?>
+            <?php if ($button_label && $button_link) : ?>
+                <div class="mt-6">
+                    <a href="<?php echo esc_url($button_link); ?>" class="inline-block px-6 py-3 bg-brand-accent text-white rounded-md hover:bg-brand-accent/90">
+                        <?php echo esc_html($button_label); ?>
+                    </a>
                 </div>
             <?php endif; ?>
         </div>

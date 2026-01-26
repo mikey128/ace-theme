@@ -23,6 +23,7 @@ $section_id = isset($info['id']) ? $info['id'] : ('info-stats-' . uniqid());
         <?php foreach ($items as $item): ?>
           <?php
             $number = isset($item['number']) ? (string) $item['number'] : '0';
+            $suffix = isset($item['suffix']) ? (string) $item['suffix'] : '';
             $label  = isset($item['label']) ? (string) $item['label'] : '';
             $hl     = !empty($item['highlight']);
             $card   = 'border rounded-md p-6 text-center text-brand-accent bg-white hover:bg-brand-accent hover:text-white transition-all duration-300 shadow-sm';
@@ -30,7 +31,11 @@ $section_id = isset($info['id']) ? $info['id'] : ('info-stats-' . uniqid());
           ?>
           <article class="<?php echo esc_attr($card); ?>">
             <p class="text-3xl mb-2 lg:text-4xl font-bold">
-              <span data-info-stat-target="<?php echo esc_attr($number); ?>">0</span>
+              <span data-info-stat-target="<?php echo esc_attr($number); ?>">0</span><?php 
+                $orig = '';
+                if (strpos($number, '/') !== false) { $orig = $number; }
+                if ($orig !== ''): ?><span class="ml-2 align-middle text-base opacity-60"><?php echo esc_html($orig); ?></span><?php endif; ?>
+                <?php if ($suffix !== ''): ?><span class="ml-1 align-middle"><?php echo esc_html($suffix); ?></span><?php endif; ?>
             </p>
             <?php if ($label !== ''): ?>
               <p class="mt-0 mb-0 text-base uppercase tracking-wide"><?php echo esc_html($label); ?></p>

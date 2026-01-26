@@ -48,6 +48,13 @@ if ($cols === 2) {
 } elseif ($cols === 6) {
   $grid = 'grid-cols-1 md:grid-cols-2 lg:grid-cols-6';
 }
+$bg_color = isset($fields['info_item_bg_color']) ? $fields['info_item_bg_color'] : '';
+$is_dark = !empty($fields['info_item_is_dark']);
+// Text Color Class
+$text_color_class = $is_dark ? 'text-white' : 'text-gray-900';
+
+// Background Style
+$bg_style = $bg_color ? 'background-color: ' . esc_attr($bg_color) . ';' : '';
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" class="py-16 lg:py-24 bg-white">
@@ -76,7 +83,7 @@ if ($cols === 2) {
             $btn_label = isset($item['button_label']) ? $item['button_label'] : '';
             $btn_link = isset($item['button_link']) ? $item['button_link'] : '';
           ?>
-          <article class="flex flex-col <?php echo esc_attr($align_class); ?>">
+          <article class="flex flex-col p-6 rounded-md  <?php echo esc_attr($text_color_class); ?> <?php echo esc_attr($align_class); ?>" style="<?php echo esc_attr($bg_style); ?> <?php echo esc_attr($text_color_class); ?>">
             <?php if ($img_id): ?>
               <div class="mb-6 md:min-h-12" >
                 <?php

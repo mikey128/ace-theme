@@ -1,13 +1,11 @@
 <?php
-$hide = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('home_industry_tabs_hide') : false;
-if ($hide) { return; }
-$full = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('home_industry_tabs_full_width') : false;
+$full = !empty($fields['vtm_full_width']);
 $wrap = $full ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
-$heading = function_exists('carbon_get_the_post_meta') ? (string) carbon_get_the_post_meta('home_industry_tabs_heading') : '';
-$subheading = function_exists('carbon_get_the_post_meta') ? (string) carbon_get_the_post_meta('home_industry_tabs_subheading') : '';
-$items = function_exists('carbon_get_the_post_meta') ? carbon_get_the_post_meta('home_industry_tabs_items') : [];
-if (empty($items) || !is_array($items)) { return; }
-$section_id = 'home-industry-tabs-' . uniqid();
+$heading = isset($fields['vtm_heading']) ? (string) $fields['vtm_heading'] : '';
+$subheading = isset($fields['vtm_subheading']) ? (string) $fields['vtm_subheading'] : '';
+$items = isset($fields['vtm_items']) ? (array) $fields['vtm_items'] : [];
+if (empty($items)) { return; }
+$section_id = 'vertical-tabbed-media-' . uniqid();
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" class="py-12 sm:py-16 md:py-20 bg-white">
   <div class="<?php echo esc_attr($wrap); ?>">
@@ -104,8 +102,6 @@ $section_id = 'home-industry-tabs-' . uniqid();
            ct.style.opacity = '0';
            ct.style.maxHeight = '0px';
         }
-        
-        // Update text color of the inner div
         var innerText = ct.querySelector('.text-sm');
         if(innerText){
           innerText.classList.toggle('text-white/90', is);
@@ -118,12 +114,7 @@ $section_id = 'home-industry-tabs-' . uniqid();
         img.classList.toggle('opacity-0', !is);
       });
     }
-    
-    // Initialize first tab
-    // We can just call setActive(0) but we want to avoid transition on load if possible, 
-    // or just let it run. Calling setActive(0) is cleanest.
     setActive(0);
-    
     buttons.forEach(function(btn){
       btn.addEventListener('click', function(){
         var i = parseInt(btn.getAttribute('data-tab'),10);

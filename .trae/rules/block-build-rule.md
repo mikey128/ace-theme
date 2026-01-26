@@ -6,8 +6,8 @@ Tailwind CSS (mobile-first)
 Vanilla JS only (no jQuery)
 
 2️⃣ Folder Structure
-/inc/blocks/name.php        → Block registration
-/template-parts/blocks/name.php → Markup
+/inc/blocks/page-blocks.php        → Block registration
+/template-parts/blocks/name.php    → Markup
 /assets/js/block-name.js          → Block JS
 
 
@@ -31,7 +31,7 @@ No div nesting without purpose
 Mobile-first
 No inline styles
 Consistent spacing:
-Section: py-16 lg:py-24
+Section: py-12 lg:py-16
 Container: px-6
 Reusable utility patterns
 
