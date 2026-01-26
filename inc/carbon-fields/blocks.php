@@ -210,6 +210,7 @@ add_action('carbon_fields_register_fields', function () {
       include(get_template_directory() . '/template-parts/blocks/testimonials-carousel.php');
     });
 });
+
  
 add_action('carbon_fields_register_fields', function () {
   Block::make(__('Info Statistics', 'ace-theme'))
@@ -556,6 +557,65 @@ add_action('carbon_fields_register_fields', function () {
     });
 });
 
+
+
+add_action('carbon_fields_register_fields', function () {
+  Block::make(__('Multi Column Media', 'ace-theme'))
+    ->set_mode('edit')
+    ->set_preview_mode('live')
+    ->add_fields([
+      Field::make('checkbox', 'multi_column_full_width', __('Full Width', 'ace-theme'))
+        ->set_help_text('Enable full width layout'),
+      Field::make('text', 'multi_column_heading', __('Heading', 'ace-theme'))
+        ->set_help_text('Main heading for the section'),
+      Field::make('rich_text', 'multi_column_subheading', __('Subheading', 'ace-theme'))
+        ->set_help_text('Subheading or description (supports HTML)'),
+      Field::make('complex', 'multi_column_items', __('Columns', 'ace-theme'))
+        ->set_layout('tabbed-vertical')
+        ->add_fields([
+          Field::make('text', 'serial', __('Serial Number', 'ace-theme'))
+            ->set_help_text('Large number displayed as watermark (e.g., 01, 02)'),
+          Field::make('image', 'icon', __('Icon Image', 'ace-theme'))
+            ->set_value_type('id')
+            ->set_help_text('Upload icon image for the column'),
+          Field::make('text', 'title', __('Title', 'ace-theme'))
+            ->set_required(true),
+          Field::make('textarea', 'description', __('Description', 'ace-theme'))
+            ->set_rows(4)
+            ->set_help_text('Description shown on hover'),
+        ])
+        ->set_header_template('
+          <% if (title) { %>
+            <%= title %>
+          <% } else { %>
+            Column #<%= $_index + 1 %>
+          <% } %>
+        ')
+        ->set_min(1)
+        ->set_max(12)
+    ])
+    ->set_description(__('A multi-column grid with hover effects showing icons, titles, and descriptions', 'ace-theme'))
+    ->set_category('ace-blocks')
+    ->set_icon('columns')
+    ->set_render_callback(function ($fields, $attributes, $inner_blocks) {
+      $full_width = $fields['multi_column_full_width'] ?? false;
+      $heading = $fields['multi_column_heading'] ?? '';
+      $subheading = $fields['multi_column_subheading'] ?? '';
+      $items = $fields['multi_column_items'] ?? [];
+
+      if (empty($items)) {
+        if (is_admin()) {
+          echo '<div style="padding: 14px 16px; border: 1px dashed #cbd5e1; border-radius: 8px; color: #475569; background: #f8fafc;">' . esc_html__('Add columns to display the multi-column media section', 'ace-theme') . '</div>';
+        }
+        return;
+      }
+
+      $wrapper_classes = $full_width ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
+      
+      // Include the multi-column media template
+      include(get_template_directory() . '/template-parts/blocks/multi-column-media.php');
+    });
+});
 /**
  * Register Product Patterns
  */
