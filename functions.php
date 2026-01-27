@@ -11,6 +11,7 @@ require_once get_template_directory() . '/inc/carbon-fields/product-fields.php';
 require_once get_template_directory() . '/inc/carbon-fields/home-fields.php';
 require_once get_template_directory() . '/inc/carbon-fields/blocks.php';
 require_once get_template_directory() . '/inc/carbon-fields/page-field.php';
+require_once get_template_directory() . '/inc/carbon-fields/page-blocks.php';
 
 
 $__global_email_fields = get_template_directory() . '/inc/carbon-fields/global-email-fields.php';

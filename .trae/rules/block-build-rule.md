@@ -1,3 +1,6 @@
+---
+alwaysApply: false
+---
 1️⃣ Architecture
 Use dynamic blocks only (server-side render via render_callback)
 Use Carbon Fields for block fields
@@ -8,7 +11,7 @@ Vanilla JS only (no jQuery)
 2️⃣ Folder Structure
 /inc/blocks/page-blocks.php        → Block registration
 /template-parts/blocks/name.php    → Markup
-/assets/js/block-name.js          → Block JS
+
 
 
 No inline CSS or inline JS in templates.
