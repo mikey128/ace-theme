@@ -81,7 +81,7 @@ $section_id = 'home-recent-news-' . uniqid();
                 <p class="mt-2 text-sm text-gray-600"><?php echo esc_html($excerpt); ?></p>
               <?php endif; ?>
               <a href="<?php echo esc_url($url); ?>" class="mt-2 inline-flex items-center text-sm font-semibold underline underline-offset-1 text-blue-600 hover:text-blue-700">
-                Learn more
+                Learn more 
               </a>
             </div>
           </article>

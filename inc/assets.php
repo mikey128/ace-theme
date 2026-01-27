@@ -46,6 +46,12 @@ function ace_assets() {
   $gallery_js = get_template_directory() . '/assets/js/swiper/product-gallery.js';
   $gallery_ver = file_exists($gallery_js) ? filemtime($gallery_js) : '1.0.0';
   wp_enqueue_script('ace-product-gallery', get_template_directory_uri() . '/assets/js/swiper/product-gallery.js', ['swiper'], $gallery_ver, true);
+
+  $news_featured_js = get_template_directory() . '/assets/js/swiper/news-featured.js';
+  $news_featured_ver = file_exists($news_featured_js) ? filemtime($news_featured_js) : '1.0.0';
+  if (is_post_type_archive('news') || is_category() || is_home()) {
+    wp_enqueue_script('ace-news-featured', get_template_directory_uri() . '/assets/js/swiper/news-featured.js', ['swiper'], $news_featured_ver, true);
+  }
   
   $qnav_js = get_template_directory() . '/assets/js/modules/quick-product-nav.js';
   $qnav_ver = file_exists($qnav_js) ? filemtime($qnav_js) : '1.0.0';
