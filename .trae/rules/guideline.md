@@ -1,6 +1,5 @@
 ---
 alwaysApply: false
-description: 
 ---
 Project: ace-theme (WordPress + Tailwind + Carbon Fields + Swiper)
 
@@ -20,7 +19,6 @@ Carbon Fields:
 - Installed via Composer/plugin, do not bundle core
 - Bootstrap: inc/carbon-fields/bootstrap.php → Carbon_Fields::boot()
 - All registrations in inc/carbon-fields/
-- CPT ‘product’ only handles structure
 - Fields (product-fields.php): text, rich_text, select, complex, media, media_gallery, association
 - Forbidden: layout logic or repeated display labels in templates
 - Templates access via carbon_get_post_meta()
@@ -33,7 +31,6 @@ Tailwind:
 
 JavaScript & Swiper:
 - Vanilla JS, modular, no global pollution
-- Swiper initialized via JS modules
 - One Swiper instance per component, no inline config
 
 Templates:

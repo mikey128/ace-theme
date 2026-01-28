@@ -10,6 +10,7 @@ require_once get_template_directory() . '/inc/carbon-fields/bootstrap.php';
 require_once get_template_directory() . '/inc/carbon-fields/product-fields.php';
 require_once get_template_directory() . '/inc/carbon-fields/home-fields.php';
 require_once get_template_directory() . '/inc/carbon-fields/news-fields.php';
+require_once get_template_directory() . '/inc/carbon-fields/product-archive-fields.php';
 require_once get_template_directory() . '/inc/carbon-fields/blocks.php';
 require_once get_template_directory() . '/inc/carbon-fields/page-field.php';
 require_once get_template_directory() . '/inc/carbon-fields/page-blocks.php';
