@@ -34,6 +34,7 @@ $text_color_class = $is_dark ? 'text-white' : 'text-gray-900';
 // Background Style
 $bg_style = $bg_color ? 'background-color: ' . esc_attr($bg_color) . ';' : '';
 $direction_class = $image_position === 'second' ? 'md:flex-row-reverse' : 'md:flex-row';
+$pad_side_class = $image_position === 'second' ? 'md:pl-0 md:pr-8' : 'md:pr-0 md:pl-8';
 
 ?>
 
@@ -52,7 +53,7 @@ $direction_class = $image_position === 'second' ? 'md:flex-row-reverse' : 'md:fl
         </div>
 
         <!-- Text Column -->
-        <div class="w-full <?php echo esc_attr($txt_width_class); ?> p-8 lg:p-12 flex flex-col justify-center <?php echo esc_attr($text_color_class); ?>" style="<?php echo $bg_style; ?>">
+        <div class="w-full <?php echo esc_attr($txt_width_class); ?> p-4 md:py-8 <?php echo esc_attr($pad_side_class); ?> flex flex-col justify-center <?php echo esc_attr($text_color_class); ?>" style="<?php echo $bg_style; ?>">
             <?php if ($heading) : ?>
                 <h3 class="text-2xl lg:text-3xl font-bold mb-4 <?php echo $is_dark ? 'text-white' : 'text-gray-900'; ?>">
                     <?php echo esc_html($heading); ?>
@@ -65,7 +66,7 @@ $direction_class = $image_position === 'second' ? 'md:flex-row-reverse' : 'md:fl
                 </div>
             <?php endif; ?>
             <?php if ($button_label && $button_link) : ?>
-                <div class="mt-6">
+                <div class="mt-2">
                     <a href="<?php echo esc_url($button_link); ?>" class="inline-block px-6 py-3 bg-brand-accent text-white rounded-md hover:bg-brand-accent/90">
                         <?php echo esc_html($button_label); ?>
                     </a>

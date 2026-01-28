@@ -37,7 +37,32 @@ require_once get_template_directory() . '/inc/cpt-email.php';
 require_once get_template_directory() . '/inc/email-capture.php';
 require_once get_template_directory() . '/inc/auth.php';
 
+// Ensure product archive is recognized by WordPress
+add_action('pre_get_posts', function($query) {
+  if (!is_admin() && $query->is_main_query()) {
+    // Handle product archive - ensure post type is set
+    if (is_post_type_archive('product') || (isset($query->query_vars['post_type']) && $query->query_vars['post_type'] === 'product')) {
+      $query->set('post_type', 'product');
+      $query->set('post_status', 'publish');
+    }
+  }
+}, 10, 1);
 
+// Force archive-product.php template for product archives
+add_filter('template_include', function($template) {
+  if (is_post_type_archive('product')) {
+    $archive_template = locate_template('archive-product.php');
+    if ($archive_template) {
+      return $archive_template;
+    }
+  }
+  return $template;
+}, 99);
+
+// Flush rewrite rules on theme activation
+add_action('after_switch_theme', function() {
+  flush_rewrite_rules();
+});
 
 add_filter('use_block_editor_for_post', function($use_block_editor, $post){
   $front_id = (int) get_option('page_on_front');

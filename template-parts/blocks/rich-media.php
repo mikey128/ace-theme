@@ -7,7 +7,7 @@ $image_id = isset($fields['rich_image']) ? intval($fields['rich_image']) : 0;
 $btn_label = isset($fields['rich_button_label']) ? (string) $fields['rich_button_label'] : '';
 $btn_link = isset($fields['rich_button_link']) ? (string) $fields['rich_button_link'] : '';
 ?>
-<section class="py-12 sm:py-16 md:py-20 bg-white">
+<section class="py-12  md:py-12 bg-white">
   <div class="<?php echo esc_attr($wrap); ?>">
     <div class="text-center max-w-4xl mx-auto">
       <?php if ($heading !== ''): ?>

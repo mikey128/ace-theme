@@ -9,7 +9,7 @@ if (! ($q instanceof WP_Query) || ! $q->have_posts()) { return; }
 $full = ! empty($args['enable_full_width']);
 $wrap = $full ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
 ?>
-<section class="bg-white py-10 sm:py-12">
+<section class="  py-8 ">
   <div class="<?php echo esc_attr($wrap); ?>">
     <div class="swiper js-news-featured-swiper overflow-hidden">
       <div class="swiper-wrapper">
@@ -67,3 +67,8 @@ $wrap = $full ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
   </div>
 </section>
 <?php wp_reset_postdata(); ?>
+  <style>
+    .swiper-pagination-bullet{
+    width:80px; border-radius:0;  height:4px;
+  } 
+  </style>

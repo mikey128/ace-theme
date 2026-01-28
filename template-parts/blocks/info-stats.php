@@ -31,11 +31,16 @@ $section_id = isset($info['id']) ? $info['id'] : ('info-stats-' . uniqid());
           ?>
           <article class="<?php echo esc_attr($card); ?>">
             <p class="text-3xl mb-2 lg:text-4xl font-bold">
-              <span data-info-stat-target="<?php echo esc_attr($number); ?>">0</span><?php 
-                $orig = '';
-                if (strpos($number, '/') !== false) { $orig = $number; }
-                if ($orig !== ''): ?><span class="ml-2 align-middle text-base opacity-60"><?php echo esc_html($orig); ?></span><?php endif; ?>
-                <?php if ($suffix !== ''): ?><span class="ml-1 align-middle"><?php echo esc_html($suffix); ?></span><?php endif; ?>
+              <?php 
+                // Check if number contains "/" - display as static text
+                $has_slash = (strpos($number, '/') !== false);
+                if ($has_slash): 
+              ?>
+                <span><?php echo esc_html($number); ?></span>
+              <?php else: ?>
+                <span data-info-stat-target="<?php echo esc_attr($number); ?>">0</span>
+              <?php endif; ?>
+              <?php if ($suffix !== ''): ?><span class=" align-middle text-3xl opacity-80"><?php echo esc_html($suffix); ?></span><?php endif; ?>
             </p>
             <?php if ($label !== ''): ?>
               <p class="mt-0 mb-0 text-base uppercase tracking-wide"><?php echo esc_html($label); ?></p>

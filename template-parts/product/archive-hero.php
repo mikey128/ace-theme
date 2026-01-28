@@ -16,7 +16,7 @@ $img_url = is_numeric($img) ? wp_get_attachment_url((int)$img) : (string)$img;
         <div class="<?php echo esc_attr($wrap); ?> w-full">
           <div class="text-center max-w-3xl mx-auto text-white">
             <?php if ($title !== ''): ?>
-              <h1 class="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight"><?php echo esc_html($title); ?></h1>
+              <h1 class="text-2xl sm:text-4xl md:text-5xl font-semibold "><?php echo esc_html($title); ?></h1>
             <?php endif; ?>
           </div>
         </div>

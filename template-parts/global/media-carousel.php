@@ -19,7 +19,7 @@ $section_description = carbon_get_the_post_meta('media_carousel_description');
 $section_id_input = (string) carbon_get_the_post_meta('media_carousel_section_id');
 $section_id = $section_id_input !== '' ? sanitize_title($section_id_input) : 'media-carousel-' . get_queried_object_id();
 ?>
-<section id="<?php echo esc_attr($section_id); ?>" class="media-carousel py-10 sm:py-12 md:py-10 bg-white">
+<section id="<?php echo esc_attr($section_id); ?>" class="media-carousel py-10 sm:py-12 md:py-16 md:mt-8 bg-white">
   <div class="<?php echo esc_attr($wrapper_classes); ?> px-4 sm:px-6 md:px-8 lg:px-12">
     <?php if (! empty($section_title) || ! empty($section_description)) : ?>
       <header class="text-center max-w-3xl mx-auto">

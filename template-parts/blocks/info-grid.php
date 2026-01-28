@@ -57,7 +57,7 @@ $text_color_class = $is_dark ? 'text-white' : 'text-gray-900';
 $bg_style = $bg_color ? 'background-color: ' . esc_attr($bg_color) . ';' : '';
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" class="py-16 lg:py-24 bg-white">
+<section id="<?php echo esc_attr($section_id); ?>" class="py-12 lg:pt-16 lg:pb-12 bg-white">
   <div class="<?php echo esc_attr($wrap); ?>">
     
     <?php if ($heading || $subheading): ?>
@@ -74,7 +74,7 @@ $bg_style = $bg_color ? 'background-color: ' . esc_attr($bg_color) . ';' : '';
     <?php endif; ?>
 
     <?php if (!empty($items)): ?>
-      <div class="grid gap-8 <?php echo esc_attr($grid); ?>">
+      <div class="grid gap-2 <?php echo esc_attr($grid); ?>">
         <?php foreach ($items as $item): ?>
           <?php
             $img_id = isset($item['image']) ? $item['image'] : 0;
@@ -83,11 +83,11 @@ $bg_style = $bg_color ? 'background-color: ' . esc_attr($bg_color) . ';' : '';
             $btn_label = isset($item['button_label']) ? $item['button_label'] : '';
             $btn_link = isset($item['button_link']) ? $item['button_link'] : '';
           ?>
-          <article class="flex flex-col p-6 rounded-md  <?php echo esc_attr($text_color_class); ?> <?php echo esc_attr($align_class); ?>" style="<?php echo esc_attr($bg_style); ?> <?php echo esc_attr($text_color_class); ?>">
+          <article class="flex flex-col pt-6 pb-4 px-4 rounded-md  <?php echo esc_attr($text_color_class); ?> <?php echo esc_attr($align_class); ?>" style="<?php echo esc_attr($bg_style); ?> <?php echo esc_attr($text_color_class); ?>">
             <?php if ($img_id): ?>
-              <div class="mb-6 md:min-h-12" >
+              <div class="md:min-h-12 mb-4" >
                 <?php
-                  $img_classes = 'max-w-full h-auto rounded-lg shadow-sm';
+                  $img_classes = 'max-w-full h-auto';
                   if (!empty($img_align_class)) { $img_classes .= ' ' . $img_align_class; }
                   echo wp_get_attachment_image($img_id, 'large', false, ['class' => $img_classes]);
                 ?>
@@ -100,7 +100,7 @@ $bg_style = $bg_color ? 'background-color: ' . esc_attr($bg_color) . ';' : '';
               <?php endif; ?>
               
               <?php if ($desc): ?>
-                <div class="text-gray-600 mb-6">
+                <div class="text-gray-600 text-sm">
                  <?php echo wp_kses_post($desc); ?>
                 </div>
               <?php endif; ?>
@@ -108,7 +108,7 @@ $bg_style = $bg_color ? 'background-color: ' . esc_attr($bg_color) . ';' : '';
     
             <?php if ($btn_label && $btn_link): ?>
               <div class="mt-auto">
-                <a href="<?php echo esc_url($btn_link); ?>" class="inline-block px-6 py-3 bg-brand-accent text-white font-medium rounded hover:bg-opacity-90 transition-colors <?php echo esc_attr($btn_align_class); ?>">
+                <a href="<?php echo esc_url($btn_link); ?>" class="inline-block px-6 py-2 bg-brand-accent text-white font-medium rounded hover:bg-opacity-90 transition-colors <?php echo esc_attr($btn_align_class); ?>">
                   <?php echo esc_html($btn_label); ?>
                 </a>
               </div>

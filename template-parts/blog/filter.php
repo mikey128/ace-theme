@@ -20,7 +20,7 @@ $btn_base = 'inline-flex items-center justify-center rounded border px-4 py-3 te
 $btn_inactive = 'border-gray-200 bg-white text-gray-700 hover:border-brand-accent hover:text-brand-accent';
 $btn_active = 'border-brand-accent bg-brand-accent text-white';
 ?>
-<section class="bg-white py-6 sm:py-8">
+<section class="bg-white pt-12 pb-6">
   <div class="<?php echo esc_attr($wrap); ?>">
     <nav aria-label="<?php echo esc_attr__('News categories', 'ace-theme'); ?>" class="flex flex-wrap items-center justify-center gap-4">
       <a class="<?php echo esc_attr($btn_base . ' ' . ($active_slug === '' ? $btn_active : $btn_inactive)); ?>" href="<?php echo esc_url($archive_url); ?>">

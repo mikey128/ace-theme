@@ -27,7 +27,7 @@ $btn_inactive = 'border-gray-200 bg-white text-gray-700 hover:border-brand-accen
 $btn_active = 'border-brand-accent bg-brand-accent text-white';
 $btn_disabled = 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed';
 ?>
-<section class="bg-white py-10 sm:py-12">
+<section class="bg-white py-10 sm:pt-8 sm:pb-16">
   <div class="<?php echo esc_attr($wrap); ?>">
     <?php if (! $q->have_posts()) : ?>
       <p class="text-center text-gray-600">

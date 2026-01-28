@@ -6,7 +6,7 @@ $wrap = $full ? 'w-full px-6' : 'max-w-7xl mx-auto px-6 max-w-global';
 $heading = isset($args['heading']) ? (string) $args['heading'] : '';
 $description = isset($args['description']) ? (string) $args['description'] : '';
 ?>
-<section class="bg-white py-10 sm:py-12 md:py-16">
+<section class="bg-white py-8   md:pt-16 md:pb-8">
   <div class="<?php echo esc_attr($wrap); ?>">
     <header class="max-w-3xl mx-auto text-center">
       <?php if ($heading !== ''): ?>
@@ -15,7 +15,7 @@ $description = isset($args['description']) ? (string) $args['description'] : '';
         </h2>
       <?php endif; ?>
       <?php if ($description !== ''): ?>
-        <p class="mt-4 text-sm sm:text-base text-gray-600 leading-relaxed">
+        <p class="mt-4 text-sm sm:text-base text-gray-600 leading-relaxed mb-0">
           <?php echo esc_html($description); ?>
         </p>
       <?php endif; ?>

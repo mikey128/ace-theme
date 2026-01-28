@@ -11,7 +11,7 @@ $section_id = 'vertical-tabbed-media-' . uniqid();
   <div class="<?php echo esc_attr($wrap); ?>">
     <header class="text-center max-w-4xl mx-auto mb-8 sm:mb-10">
       <?php if ($heading !== ''): ?>
-        <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900"><?php echo esc_html($heading); ?></h2>
+        <h2 class="text-2xl mb-2 sm:text-3xl md:text-4xl font-semibold text-gray-900"><?php echo esc_html($heading); ?></h2>
       <?php endif; ?>
       <?php if ($subheading !== ''): ?>
         <div class="mt-3 text-sm sm:text-base text-gray-500"><?php echo wp_kses_post($subheading); ?></div>
